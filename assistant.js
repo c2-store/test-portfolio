@@ -7,7 +7,7 @@
    ============================================================================ */
 
 const TVA_CONFIG = {
-  workerUrl: "https://COLLE-ICI-URL-DE-TON-WORKER.workers.dev",
+  workerUrl: "theo-portfolio-ia.theovigouroux2007.workers.dev",
 };
 
 (function () {
