@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Projets — Theo Vigouroux</title>
 <style>
+  .nav-toggle{display:none;background:none;border:none;color:var(--white);font-size:26px;cursor:pointer;line-height:1;padding:2px 4px}
+@media(max-width:768px){
+  .nav-toggle{display:block}
+  nav ul{
+    display:flex !important;flex-direction:column;gap:0;
+    position:fixed;top:52px;left:0;right:0;
+    background:rgba(0,0,0,0.96);backdrop-filter:saturate(180%) blur(20px);
+    border-bottom:1px solid var(--border);
+    max-height:0;overflow:hidden;transition:max-height .3s ease;
+  }
+  nav ul.nav-open{max-height:340px}
+  nav ul li{width:100%}
+  nav ul li a{display:block;padding:16px 24px;font-size:15px;color:var(--gray)}
+  nav ul li:not(:last-child) a{border-bottom:1px solid var(--border)}
+}
 :root{--bg:#000;--white:#f5f5f7;--gray:#86868b;--blue:#2997ff;--card:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.08)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -200,6 +215,7 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
 
 <nav>
   <a class="logo" href="index.html">Theo Vigouroux</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu">☰</button>
   <ul>
     <li><a href="index.html#about">Qui suis-je ?</a></li>
     <li><a href="projets.html" class="active">Projets</a></li>
@@ -1381,5 +1397,6 @@ document.querySelectorAll('.filter-btn').forEach(function(btn){
 });
 </script>
   <script defer src="assistant.js"></script>
+  <script defer src="site.js"></script>
 </body>
 </html>
