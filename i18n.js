@@ -206,73 +206,90 @@
   }
 
   /* ════════════════════════════════════════════
-     SÉLECTEUR DE LANGUE
+     SÉLECTEUR DE LANGUE — bouton flottant fixe
+     Toujours visible, sur tous les écrans,
+     sans dépendre du HTML existant.
      ════════════════════════════════════════════ */
 
   var style = document.createElement("style");
-  style.textContent = [
-    ".tva-lang{position:relative}",
-    ".tva-lang-btn{background:rgba(255,255,255,.06);border:1px solid var(--border,rgba(255,255,255,.08));",
-    "  color:var(--white,#f5f5f7);font-size:12px;padding:6px 11px;border-radius:980px;",
-    "  cursor:pointer;white-space:nowrap;transition:border-color .2s}",
-    ".tva-lang-btn:hover{border-color:var(--blue,#2997ff)}",
-    ".tva-lang-menu{position:absolute;top:calc(100% + 8px);right:0;background:#0c0c0e;",
-    "  border:1px solid var(--border,rgba(255,255,255,.08));border-radius:12px;padding:6px;",
-    "  display:none;flex-direction:column;min-width:150px;",
-    "  box-shadow:0 12px 36px rgba(0,0,0,.5);z-index:200}",
-    ".tva-lang-menu.open{display:flex}",
-    ".tva-lang-item{background:none;border:none;color:var(--white,#f5f5f7);font-size:13px;",
-    "  padding:9px 10px;border-radius:8px;text-align:left;cursor:pointer;transition:background .15s}",
-    ".tva-lang-item:hover{background:rgba(255,255,255,.08)}",
-    ".tva-lang-item.cur{color:var(--blue,#2997ff)}"
-  ].join("\n");
+  style.textContent =
+    /* Bouton flottant en bas à gauche */
+    "#tvaFloat{" +
+      "position:fixed;bottom:20px;left:20px;z-index:9998;" +
+      "display:flex;align-items:center;gap:0;" +
+    "}" +
+    "#tvaFloatBtn{" +
+      "width:50px;height:50px;border-radius:50%;border:1px solid rgba(255,255,255,.15);" +
+      "background:rgba(12,12,14,.92);backdrop-filter:blur(12px);" +
+      "color:#f5f5f7;font-size:22px;cursor:pointer;" +
+      "display:flex;align-items:center;justify-content:center;" +
+      "box-shadow:0 4px 18px rgba(0,0,0,.45);" +
+      "transition:transform .2s,border-color .2s;" +
+    "}" +
+    "#tvaFloatBtn:hover{transform:scale(1.07);border-color:var(--blue,#2997ff)}" +
+    /* Menu déroulant qui s'ouvre vers le haut */
+    "#tvaFloatMenu{" +
+      "position:absolute;bottom:calc(100% + 10px);left:0;" +
+      "background:#0c0c0e;border:1px solid rgba(255,255,255,.10);" +
+      "border-radius:14px;padding:6px;" +
+      "display:none;flex-direction:column;min-width:160px;" +
+      "box-shadow:0 12px 40px rgba(0,0,0,.6);z-index:9999;" +
+    "}" +
+    "#tvaFloatMenu.open{display:flex}" +
+    ".tva-lang-item{" +
+      "background:none;border:none;color:#f5f5f7;font-size:13px;" +
+      "padding:9px 12px;border-radius:8px;text-align:left;" +
+      "cursor:pointer;transition:background .15s;white-space:nowrap;" +
+    "}" +
+    ".tva-lang-item:hover{background:rgba(255,255,255,.08)}" +
+    ".tva-lang-item.cur{color:var(--blue,#2997ff);font-weight:600}";
   document.head.appendChild(style);
 
   function buildSwitcher() {
-    var mount = document.getElementById("tvaLangSwitcher");
-    if (!mount) return;
+    if (document.getElementById("tvaFloat")) return;
     var cur = getCurrentLang();
 
-    mount.innerHTML =
-      '<div class="tva-lang">' +
-        '<button type="button" id="tvaLangBtn" class="tva-lang-btn" aria-haspopup="true" aria-expanded="false">' +
-          (FLAGS[cur] || "🌐") + " " + cur.toUpperCase() +
-        "</button>" +
-        '<div class="tva-lang-menu" id="tvaLangMenu">' +
-          LANGS.map(function (l) {
-            return (
-              '<button type="button" class="tva-lang-item' + (l === cur ? " cur" : "") + '" data-l="' + l + '">' +
-                (FLAGS[l] || "") + " " + (NAMES[l] || l) +
-              "</button>"
-            );
-          }).join("") +
-        "</div>" +
-      "</div>";
+    var wrap = document.createElement("div");
+    wrap.id = "tvaFloat";
 
-    var btn      = document.getElementById("tvaLangBtn");
-    var dropdown = document.getElementById("tvaLangMenu");
+    var menu = document.createElement("div");
+    menu.id = "tvaFloatMenu";
+    menu.innerHTML = LANGS.map(function (l) {
+      return (
+        '<button type="button" class="tva-lang-item' + (l === cur ? " cur" : "") + '" data-l="' + l + '">' +
+          (FLAGS[l] || "") + " " + (NAMES[l] || l) +
+        "</button>"
+      );
+    }).join("");
+
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.id = "tvaFloatBtn";
+    btn.setAttribute("aria-label", "Changer de langue");
+    btn.setAttribute("aria-haspopup", "true");
+    btn.textContent = FLAGS[cur] || "🌐";
+
+    wrap.appendChild(menu);
+    wrap.appendChild(btn);
+    document.body.appendChild(wrap);
 
     btn.addEventListener("click", function (e) {
       e.stopPropagation();
-      var isOpen = dropdown.classList.toggle("open");
-      btn.setAttribute("aria-expanded", String(isOpen));
+      menu.classList.toggle("open");
     });
 
-    dropdown.querySelectorAll(".tva-lang-item").forEach(function (item) {
+    menu.querySelectorAll(".tva-lang-item").forEach(function (item) {
       item.addEventListener("click", function () {
-        var lang = item.getAttribute("data-l");
-        dropdown.classList.remove("open");
-        saveLang(lang);
-        /* Recharge la page : le texte source est dans le HTML, pas en mémoire
-           → la traduction s'applique proprement dès le chargement */
+        menu.classList.remove("open");
+        saveLang(item.getAttribute("data-l"));
         location.reload();
       });
     });
   }
 
   document.addEventListener("click", function () {
-    var d = document.getElementById("tvaLangMenu");
-    if (d) { d.classList.remove("open"); }
+    var d = document.getElementById("tvaFloatMenu");
+    if (d) d.classList.remove("open");
   });
 
   /* ════════════════════════════════════════════
