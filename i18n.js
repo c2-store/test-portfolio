@@ -22,7 +22,7 @@
      🔧 SEULE LIGNE À MODIFIER
      Colle ici l'URL de ton Worker Cloudflare
      ────────────────────────────────────────── */
-  var WORKER_URL = "https://COLLE-ICI-URL-DE-TON-WORKER.workers.dev";
+ var WORKER_URL = "https://theo-portfolio-ia.theovigouroux2007.workers.dev";
 
   /* ── Configuration des langues ── */
   var LANGS  = ["fr", "en", "es", "de", "it", "pt", "zh"];
