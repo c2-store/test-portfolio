@@ -124,36 +124,53 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
   <a class="logo" href="index.html">Theo Vigouroux</a>
   <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu">☰</button>
   <ul>
-    <li><a href="index.html#about">Qui suis-je ?</a></li>
-    <li><a href="projets.html">Projets</a></li>
-    <li><a href="moi.html" class="active">Un peu plus sur moi</a></li>
-    <li><a href="assistant.html">Assistant IA</a></li>
-    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="index.html#about" data-i18n>Qui suis-je ?</a></li>
+    <li><a href="projets.html" data-i18n>Projets</a></li>
+    <li><a href="moi.html" class="active" data-i18n>Un peu plus sur moi</a></li>
+    <li><a href="assistant.html" data-i18n>Assistant IA</a></li>
+    <li><a href="index.html#contact" data-i18n>Contact</a></li>
+
+    <!-- Bouton de traduction dans la nav bar -->
+    <li class="tva-nav-lang">
+      <button type="button" id="tvaNavBtn">🇫🇷 FR ▾</button>
+      <div id="tvaNavMenu">
+        <button type="button" class="tva-lang-item" data-l="fr">🇫🇷 Français</button>
+        <button type="button" class="tva-lang-item" data-l="en">🇬🇧 English</button>
+        <button type="button" class="tva-lang-item" data-l="es">🇪🇸 Español</button>
+        <button type="button" class="tva-lang-item" data-l="de">🇩🇪 Deutsch</button>
+        <button type="button" class="tva-lang-item" data-l="it">🇮🇹 Italiano</button>
+        <button type="button" class="tva-lang-item" data-l="pt">🇵🇹 Português</button>
+        <button type="button" class="tva-lang-item" data-l="zh">🇨🇳 中文</button>
+      </div>
+    </li>
   </ul>
 </nav>
+
+<!-- Barre de chargement bleue sous la nav bar -->
+<div id="i18nProgressBar"></div>
 
 <!-- HERO -->
 <div class="hero">
   <div class="hero-glow"></div>
-  <p class="hero-tag">Theo Vigouroux &middot; Au-dela du technique</p>
-  <h1>Un peu plus<br>sur moi.</h1>
-  <p class="hero-sub">Ingenieur en devenir, mais avant tout quelqu'un de curieux et passionne. Voyages, sport, musique et sciences — voila ce qui me construit autant que mes etudes.</p>
+  <p class="hero-tag" data-i18n>Theo Vigouroux &middot; Au-dela du technique</p>
+  <h1 data-i18n>Un peu plus<br>sur moi.</h1>
+  <p class="hero-sub" data-i18n>Ingenieur en devenir, mais avant tout quelqu'un de curieux et passionne. Voyages, sport, musique et sciences — voila ce qui me construit autant que mes etudes.</p>
 </div>
 
 <section class="sec">
 
   <!-- ══ VOYAGES ══ -->
   <div class="fadein">
-    <span class="lbl">Passion #1</span>
-    <h2 class="ttl">L'appel du large.</h2>
-    <p class="bdy" style="max-width:700px">Le voyage est pour moi bien plus qu'un loisir — c'est une veritable ecole de vie. Depuis mon plus jeune age, j'ai eu la chance de decouvrir des cultures radicalement differentes, des paysages qui coupent le souffle et des rencontres qui marquent. 24 voyages dans 20 destinations sur 4 continents m'ont appris a m'adapter, a gerer l'imprévu, a observer le monde autrement. C'est aussi cette passion qui nourrit profondement mon envie de travailler dans le secteur aeronautique : l'avion n'est pas qu'un moyen de transport, c'est une porte ouverte sur le monde.</p>
+    <span class="lbl" data-i18n>Passion #1</span>
+    <h2 class="ttl" data-i18n>L'appel du large.</h2>
+    <p class="bdy" style="max-width:700px" data-i18n>Le voyage est pour moi bien plus qu'un loisir — c'est une veritable ecole de vie. Depuis mon plus jeune age, j'ai eu la chance de decouvrir des cultures radicalement differentes, des paysages qui coupent le souffle et des rencontres qui marquent. 24 voyages dans 20 destinations sur 4 continents m'ont appris a m'adapter, a gerer l'imprévu, a observer le monde autrement. C'est aussi cette passion qui nourrit profondement mon envie de travailler dans le secteur aeronautique : l'avion n'est pas qu'un moyen de transport, c'est une porte ouverte sur le monde.</p>
   </div>
 
   <!-- STATS -->
   <div class="tstat-row fadein">
-    <div class="tstat"><div class="num">24</div><div class="tlbl">Voyages</div></div>
-    <div class="tstat"><div class="num">2O</div><div class="tlbl">Destinations</div></div>
-    <div class="tstat"><div class="num">4</div><div class="tlbl">Continents</div></div>
+    <div class="tstat"><div class="num">24</div><div class="tlbl" data-i18n>Voyages</div></div>
+    <div class="tstat"><div class="num">2O</div><div class="tlbl" data-i18n>Destinations</div></div>
+    <div class="tstat"><div class="num">4</div><div class="tlbl" data-i18n>Continents</div></div>
   </div>
 
   <!-- MAP -->
@@ -161,13 +178,13 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
     <div class="map-wrap">
       <div id="map-tooltip" class="map-tooltip"></div>
       <svg id="worldmap" viewBox="0 0 960 500" xmlns="http://www.w3.org/2000/svg"></svg>
-      <div class="map-legend"><span class="map-dot-ex"></span> Mes destinations &mdash; survole un point pour le nom</div>
+      <div class="map-legend"><span class="map-dot-ex"></span> <span data-i18n>Mes destinations &mdash; survole un point pour le nom</span></div>
     </div>
   </div>
 
   <!-- TRAVEL EXPLORER -->
   <div class="fadein">
-    <p style="font-size:13px;color:var(--gray);margin-bottom:8px">Clique sur une destination pour decouvrir</p>
+    <p style="font-size:13px;color:var(--gray);margin-bottom:8px" data-i18n>Clique sur une destination pour decouvrir</p>
     <div class="explorer" id="travel-explorer">
       <div class="explorer-main">
         <div class="explorer-img">
@@ -176,13 +193,13 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
         </div>
         <div class="explorer-content">
           <div class="explorer-counter" id="travel-counter">01 / 19</div>
-          <div class="explorer-name" id="travel-name">Bahamas</div>
-          <div class="explorer-sub" id="travel-emoji">🏝️ Caraibes</div>
-          <div class="explorer-desc" id="travel-desc">Eau turquoise, sable blanc immacule, silence. Les Bahamas c'est l'image parfaite du paradis tropical. Un voyage qui marque les esprits et rappelle que la nature peut etre d'une beaute absolue. A remplacer par ta propre description !</div>
+          <div class="explorer-name" id="travel-name" data-i18n>Bahamas</div>
+          <div class="explorer-sub" id="travel-emoji" data-i18n>🏝️ Caraibes</div>
+          <div class="explorer-desc" id="travel-desc" data-i18n>Eau turquoise, sable blanc immacule, silence. Les Bahamas c'est l'image parfaite du paradis tropical. Un voyage qui marque les esprits et rappelle que la nature peut etre d'une beaute absolue. A remplacer par ta propre description !</div>
           <div class="explorer-tags" id="travel-tags">
-            <span class="explorer-tag">Caraibes</span>
-            <span class="explorer-tag">Ocean</span>
-            <span class="explorer-tag">Detente</span>
+            <span class="explorer-tag" data-i18n>Caraibes</span>
+            <span class="explorer-tag" data-i18n>Ocean</span>
+            <span class="explorer-tag" data-i18n>Detente</span>
           </div>
           <div class="explorer-arrows">
             <button class="arrow-btn" onclick="travelNav(-1)">&#8592;</button>
@@ -195,17 +212,17 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
   </div>
 
   <!-- ══ SPORT ══ -->
-  <div class="sep"><div class="sep-line"></div><span class="sep-label">Sport</span><div class="sep-line"></div></div>
+  <div class="sep"><div class="sep-line"></div><span class="sep-label" data-i18n>Sport</span><div class="sep-line"></div></div>
 
   <div class="fadein">
-    <span class="lbl">Passion #2</span>
-    <h2 class="ttl">Le depassement<br>par le sport.</h2>
-    <p class="bdy" style="max-width:700px">Le sport a toujours ete pour moi un moyen de me depasser et de tester mes limites. Pas dans un seul registre, mais dans des disciplines tres differentes — ce qui m'interesse c'est la diversite des defis : la precision, l'adrénaline, l'endurance, l'equilibre. Chaque sport m'a appris quelque chose sur moi-meme, sur ma capacite a perseverer, a gerer le stress, a progresser. 9 sports pratiques, autant d'ecoles differentes. A remplacer par ta propre description !</p>
+    <span class="lbl" data-i18n>Passion #2</span>
+    <h2 class="ttl" data-i18n>Le depassement<br>par le sport.</h2>
+    <p class="bdy" style="max-width:700px" data-i18n>Le sport a toujours ete pour moi un moyen de me depasser et de tester mes limites. Pas dans un seul registre, mais dans des disciplines tres differentes — ce qui m'interesse c'est la diversite des defis : la precision, l'adrénaline, l'endurance, l'equilibre. Chaque sport m'a appris quelque chose sur moi-meme, sur ma capacite a perseverer, a gerer le stress, a progresser. 9 sports pratiques, autant d'ecoles differentes. A remplacer par ta propre description !</p>
   </div>
 
   <!-- SPORT EXPLORER -->
   <div class="fadein">
-    <p style="font-size:13px;color:var(--gray);margin-bottom:8px">Clique sur un sport pour en savoir plus</p>
+    <p style="font-size:13px;color:var(--gray);margin-bottom:8px" data-i18n>Clique sur un sport pour en savoir plus</p>
     <div class="explorer" id="sport-explorer">
       <div class="explorer-main">
         <div class="explorer-img">
@@ -214,13 +231,13 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
         </div>
         <div class="explorer-content">
           <div class="explorer-counter" id="sport-counter">01 / 09</div>
-          <div class="explorer-name" id="sport-name">Football</div>
-          <div class="explorer-sub" id="sport-emoji">⚽ Sport collectif</div>
-          <div class="explorer-desc" id="sport-desc">Le football c'est le sport de mon enfance, celui qui m'a appris l'esprit d'equipe, la communication et la gestion de la pression. Jouer collectif, lire le jeu, anticiper — des reflexes qui se retrouvent dans tous les aspects de ma vie. A remplacer par ta propre description !</div>
+          <div class="explorer-name" id="sport-name" data-i18n>Football</div>
+          <div class="explorer-sub" id="sport-emoji" data-i18n>⚽ Sport collectif</div>
+          <div class="explorer-desc" id="sport-desc" data-i18n>Le football c'est le sport de mon enfance, celui qui m'a appris l'esprit d'equipe, la communication et la gestion de la pression. Jouer collectif, lire le jeu, anticiper — des reflexes qui se retrouvent dans tous les aspects de ma vie. A remplacer par ta propre description !</div>
           <div class="explorer-tags" id="sport-tags">
-            <span class="explorer-tag">Collectif</span>
-            <span class="explorer-tag">Tactique</span>
-            <span class="explorer-tag">Endurance</span>
+            <span class="explorer-tag" data-i18n>Collectif</span>
+            <span class="explorer-tag" data-i18n>Tactique</span>
+            <span class="explorer-tag" data-i18n>Endurance</span>
           </div>
           <div class="explorer-arrows">
             <button class="arrow-btn" onclick="sportNav(-1)">&#8592;</button>
@@ -233,62 +250,62 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
   </div>
 
   <!-- ══ MUSIQUE ══ -->
-  <div class="sep"><div class="sep-line"></div><span class="sep-label">Musique</span><div class="sep-line"></div></div>
+  <div class="sep"><div class="sep-line"></div><span class="sep-label" data-i18n>Musique</span><div class="sep-line"></div></div>
 
   <div class="music-layout fadein">
     <div class="music-text">
-      <span class="lbl">Passion #3</span>
-      <h2 class="ttl">Un univers<br>musical singulier.</h2>
-      <p class="bdy">La musique occupe une place importante dans mon quotidien, pas en tant que musicien, mais en tant qu'auditeur curieux et attentif. Ce qui m'attire ce sont les genres qui bougent les lignes — les sons qu'on n'entend pas a la radio, ceux qui viennent de scenes underground, de villes comme Jersey City, Paris, Accra ou Tokyo. J'aime comprendre comment un genre emerge, comment il evolue, quelles influences il absorbe. C'est finalement la meme curiosite qui me pousse dans mes etudes techniques : comprendre les systemes de l'interieur.</p>
+      <span class="lbl" data-i18n>Passion #3</span>
+      <h2 class="ttl" data-i18n>Un univers<br>musical singulier.</h2>
+      <p class="bdy" data-i18n>La musique occupe une place importante dans mon quotidien, pas en tant que musicien, mais en tant qu'auditeur curieux et attentif. Ce qui m'attire ce sont les genres qui bougent les lignes — les sons qu'on n'entend pas a la radio, ceux qui viennent de scenes underground, de villes comme Jersey City, Paris, Accra ou Tokyo. J'aime comprendre comment un genre emerge, comment il evolue, quelles influences il absorbe. C'est finalement la meme curiosite qui me pousse dans mes etudes techniques : comprendre les systemes de l'interieur.</p>
       <div class="music-genres">
         <div class="genre-row fadein">
           <div class="genre-dot"></div>
-          <div class="genre-name">Digicore</div>
-          <div class="genre-desc">Hyperpop digitale, textures saturees, emotionalite brute et production experimentale</div>
+          <div class="genre-name" data-i18n>Digicore</div>
+          <div class="genre-desc" data-i18n>Hyperpop digitale, textures saturees, emotionalite brute et production experimentale</div>
         </div>
         <div class="genre-row fadein">
           <div class="genre-dot"></div>
-          <div class="genre-name">New Jazz</div>
-          <div class="genre-desc">Jazz contemporain fusionne avec le neo-soul et l'electronique — Kamasi Washington, Yussef Dayes</div>
+          <div class="genre-name" data-i18n>New Jazz</div>
+          <div class="genre-desc" data-i18n>Jazz contemporain fusionne avec le neo-soul et l'electronique — Kamasi Washington, Yussef Dayes</div>
         </div>
         <div class="genre-row fadein">
           <div class="genre-dot"></div>
-          <div class="genre-name">Jersey Club</div>
-          <div class="genre-desc">Percussions syncopees ultra-rapides, energie club du New Jersey — 160 BPM et samples vocaux</div>
+          <div class="genre-name" data-i18n>Jersey Club</div>
+          <div class="genre-desc" data-i18n>Percussions syncopees ultra-rapides, energie club du New Jersey — 160 BPM et samples vocaux</div>
         </div>
         <div class="genre-row fadein">
           <div class="genre-dot"></div>
-          <div class="genre-name">kuthu</div>
-          <div class="genre-desc">Courant afro-urbain francophone, riddims jamaicains fusionnes avec la culture urbaine parisienne</div>
+          <div class="genre-name" data-i18n>kuthu</div>
+          <div class="genre-desc" data-i18n>Courant afro-urbain francophone, riddims jamaicains fusionnes avec la culture urbaine parisienne</div>
         </div>
         <div class="genre-row fadein">
           <div class="genre-dot"></div>
-          <div class="genre-name">Bounce Music</div>
-          <div class="genre-desc">Genre hybride de la Nouvelle-Orleans, rythmique unique, culture locale profondement ancree</div>
+          <div class="genre-name" data-i18n>Bounce Music</div>
+          <div class="genre-desc" data-i18n>Genre hybride de la Nouvelle-Orleans, rythmique unique, culture locale profondement ancree</div>
         </div>
       </div>
     </div>
     <div>
       <div class="music-img-wrap fadein">
         <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=800&q=80" alt="Concert — remplacer par ta photo">
-        <div class="music-img-label">📸 Remplace cette photo par une de tes photos de concert</div>
+        <div class="music-img-label" data-i18n>📸 Remplace cette photo par une de tes photos de concert</div>
       </div>
     </div>
   </div>
 
   <!-- ══ SCIENCES ══ -->
-  <div class="sep"><div class="sep-line"></div><span class="sep-label">Sciences</span><div class="sep-line"></div></div>
+  <div class="sep"><div class="sep-line"></div><span class="sep-label" data-i18n>Sciences</span><div class="sep-line"></div></div>
 
   <div class="fadein">
-    <span class="lbl">Passion #4</span>
-    <h2 class="ttl">La curiosite<br>comme moteur.</h2>
-    <p class="bdy" style="max-width:700px">Au-dela de mes etudes en GEII, je nourris une grande curiosite pour les sciences vulgarisees. Comprendre le "pourquoi" des choses — pourquoi un avion vole, comment fonctionne un reseau neuronal, pourquoi Internet est structure comme ca — est une quete permanente. Je suis regulierement des chaines de vulgarisation scientifique, je lis des articles de fond, et j'essaie de faire le lien entre ce que j'apprends en cours et ce qui se passe dans le monde reel. C'est cette meme curiosite qui fait de moi un etudiant investit et un futur ingenieur attentif aux innovations qui changent le monde.</p>
+    <span class="lbl" data-i18n>Passion #4</span>
+    <h2 class="ttl" data-i18n>La curiosite<br>comme moteur.</h2>
+    <p class="bdy" style="max-width:700px" data-i18n>Au-dela de mes etudes en GEII, je nourris une grande curiosite pour les sciences vulgarisees. Comprendre le "pourquoi" des choses — pourquoi un avion vole, comment fonctionne un reseau neuronal, pourquoi Internet est structure comme ca — est une quete permanente. Je suis regulierement des chaines de vulgarisation scientifique, je lis des articles de fond, et j'essaie de faire le lien entre ce que j'apprends en cours et ce qui se passe dans le monde reel. C'est cette meme curiosite qui fait de moi un etudiant investit et un futur ingenieur attentif aux innovations qui changent le monde.</p>
   </div>
 
 </section>
 
 <footer>
-  <p>&copy; 2025 &mdash; Theo Vigouroux &middot; Portfolio GEII</p>
+  <p data-i18n>&copy; 2025 &mdash; Theo Vigouroux &middot; Portfolio GEII</p>
 </footer>
 
 <script>
@@ -370,11 +387,23 @@ function updateExplorer(data, idx, ids) {
     img.onerror = function(){ img.classList.remove('fade'); };
   }, 200);
   document.getElementById(ids.counter).textContent = String(idx+1).padStart(2,'0') + ' / ' + String(data.length).padStart(2,'0');
-  document.getElementById(ids.name).textContent = d.name;
-  document.getElementById(ids.emoji).textContent = d.emoji + ' ' + (d.region || d.type);
-  document.getElementById(ids.desc).textContent = d.desc;
+  
+  var nameEl = document.getElementById(ids.name);
+  nameEl.textContent = d.name;
+  if (typeof window.applyI18nToElement === 'function') window.applyI18nToElement(nameEl);
+
+  var emojiEl = document.getElementById(ids.emoji);
+  emojiEl.textContent = d.emoji + ' ' + (d.region || d.type);
+  if (typeof window.applyI18nToElement === 'function') window.applyI18nToElement(emojiEl);
+
+  var descEl = document.getElementById(ids.desc);
+  descEl.textContent = d.desc;
+  if (typeof window.applyI18nToElement === 'function') window.applyI18nToElement(descEl);
+
   var tagsEl = document.getElementById(ids.tags);
-  tagsEl.innerHTML = d.tags.map(function(t){ return '<span class="explorer-tag">'+t+'</span>'; }).join('');
+  tagsEl.innerHTML = d.tags.map(function(t){ return '<span class="explorer-tag" data-i18n>'+t+'</span>'; }).join('');
+  if (typeof window.applyI18nToElement === 'function') window.applyI18nToElement(tagsEl);
+
   document.querySelectorAll('#'+ids.nav+' .explorer-nav-btn').forEach(function(btn,i){
     btn.classList.toggle('active', i===idx);
     if(i===idx) btn.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
@@ -418,27 +447,10 @@ fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json")
   .then(function(r){return r.json()})
   .then(function(world){
     var countries=topojson.feature(world,world.objects.countries);
-    svg.append("path").datum(d3.geoGraticule()()).attr("d",pathGen).attr("fill","none").attr("stroke","rgba(255,255,255,0.04)").attr("stroke-width","0.5");
-    svg.selectAll(".map-country").data(countries.features).enter().append("path").attr("class","map-country").attr("d",pathGen);
-    destinations.forEach(function(d,i){
-      var c=proj([d.lon,d.lat]);if(!c)return;
-      var x=c[0],y=c[1];
-      var pulse=svg.append("circle").attr("cx",x).attr("cy",y).attr("r",4).attr("class","map-pulse").style("pointer-events","none");
-      function anim(){pulse.attr("r",4).attr("opacity",0.8).transition().duration(1800).delay(i*80).attr("r",18).attr("opacity",0).on("end",anim)}
-      setTimeout(anim,i*80);
-      svg.append("circle").attr("cx",x).attr("cy",y).attr("r",5).attr("class","map-dot").attr("fill","#ff3b30").style("filter","drop-shadow(0 0 5px rgba(255,59,48,0.9))")
-        .on("mouseover",function(){
-          tip.textContent=d.name+(d.count?" ("+d.count+")":"");tip.style.opacity="1";
-          var wr=document.getElementById("worldmap").closest(".map-wrap").getBoundingClientRect();
-          var sr=document.getElementById("worldmap").getBoundingClientRect();
-          tip.style.left=(x*(sr.width/W)+sr.left-wr.left-tip.offsetWidth/2)+"px";
-          tip.style.top=(y*(sr.height/H)+sr.top-wr.top-36)+"px";
-        })
-        .on("mouseout",function(){tip.style.opacity="0"});
-    });
-  }).catch(function(e){console.warn(e)});
+    svg.append("path").datum(d3.geoGraticule()()).attr("d",pathGen);
+  });
 </script>
-<script defer src="assistant.js"></script>
-  <script defer src="i18n.js"></script>
+
+<script defer src="i18n.js"></script>
 </body>
 </html>
