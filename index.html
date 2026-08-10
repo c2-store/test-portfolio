@@ -403,28 +403,32 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
   <p class="lbl" data-i18n>Formation &amp; Experience</p>
   <h2 class="ttl" data-i18n>Un parcours construit<br>avec methode.</h2>
   <div class="timeline">
-  <div class="tl">
+ <div class="tl">
   <div class="tl-dot"></div>
   <p class="tl-date">Ete 2026</p>
   <h3 data-i18n>ATE &mdash; Caisse d'Epargne, Corbeil-Essonnes</h3>
   <p data-i18n>Poste principalement en accueil agence &mdash; reponse aux demandes clients et accompagnement personnalise.</p>
 
-  <button class="btn-detail" onclick="toggleDetail('detail-caisse-epargne')" data-i18n>
-    Voir le detail
+  <button class="btn-detail" id="btn-caisse-epargne" onclick="toggleDetail('caisse-epargne')" data-i18n>
+    Voir le detail <span class="chevron">&#9662;</span>
   </button>
 
-  <div id="detail-caisse-epargne" class="tl-detail">
-    <h4 data-i18n>Ce que j'ai fait</h4>
-    <p data-i18n>Accueil et orientation des clients en agence, reponse aux demandes courantes, gestion des flux au guichet.</p>
+  <div id="wrap-caisse-epargne" class="tl-detail-wrap">
+    <div class="tl-detail-inner">
+      <div class="tl-detail">
+        <h4 data-i18n>Ce que j'ai fait</h4>
+        <p data-i18n>Accueil et orientation des clients en agence, reponse aux demandes courantes, gestion des flux au guichet.</p>
 
-    <h4 data-i18n>Ce que j'ai appris</h4>
-    <p data-i18n>Connaissance des produits bancaires de base, posture professionnelle face au client, gestion du stress et des situations delicates.</p>
+        <h4 data-i18n>Ce que j'ai appris</h4>
+        <p data-i18n>Connaissance des produits bancaires de base, posture professionnelle face au client, gestion du stress et des situations delicates.</p>
 
-    <h4 data-i18n>Avis de mes collegues</h4>
-    <!-- AVIS COLLEGUES : remplacez le texte ci-dessous par un vrai temoignage -->
-    <div class="quote">
-      <blockquote>« Votre témoignage ici — demandez à un collègue ou responsable de décrire votre travail en une phrase. »</blockquote>
-      — Nom Prenom, Poste
+        <h4 data-i18n>Avis de mes collegues</h4>
+        <!-- AVIS COLLEGUES : remplacez le texte ci-dessous par un vrai temoignage -->
+        <div class="quote on">
+          <blockquote>« Votre témoignage ici — demandez à un collègue ou responsable de décrire votre travail en une phrase. »</blockquote>
+          &mdash; Nom Prenom, Poste
+        </div>
+      </div>
     </div>
   </div>
 </div>
