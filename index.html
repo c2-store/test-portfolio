@@ -5,6 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Theo Vigouroux — Portfolio GEII</title>
 <style>
+/* Barre de progression de traduction */
+.i18n-progress-bar {
+  position: fixed;
+  top: 52px; /* Placée exactement sous la nav bar */
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background-color: var(--blue, #2997ff);
+  box-shadow: 0 0 10px rgba(41, 151, 255, 0.8); /* Effet néon bleu */
+  z-index: 101;
+  opacity: 0;
+  transition: width 0.3s ease, opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.i18n-progress-bar.active {
+  opacity: 1;
+}
 .nav-toggle{display:none;background:none;border:none;color:var(--white);font-size:26px;cursor:pointer;line-height:1;padding:2px 4px}
 @media(max-width:768px){
   .nav-toggle{display:block}
