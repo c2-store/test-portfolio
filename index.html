@@ -32,8 +32,7 @@
 .btn-detail.open .chevron {
   transform: rotate(180deg);
 }
-
-.tl-detail-wrap {
+  .tl-detail-wrap {
   display: grid;
   grid-template-rows: 0fr;
   transition: grid-template-rows .4s cubic-bezier(.4,0,.2,1);
@@ -51,8 +50,13 @@
   border: 1px solid var(--border);
   border-radius: 16px;
   transition: border-color .3s;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity .35s ease .1s, transform .35s ease .1s, border-color .3s;
 }
 .tl-detail-wrap.open .tl-detail {
+  opacity: 1;
+  transform: translateY(0);
   border-color: rgba(41,151,255,.2);
 }
 .tl-detail h4 {
@@ -694,10 +698,12 @@ fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json")
     });
   });
 </script>
- <script>
+<script>
 function toggleDetail(id) {
-  document.getElementById('wrap-' + id).classList.toggle('open');
-  document.getElementById('btn-' + id).classList.toggle('open');
+  var wrap = document.getElementById('wrap-' + id);
+  var btn = document.getElementById('btn-' + id);
+  wrap.classList.toggle('open');
+  btn.classList.toggle('open');
 }
 </script>
 </body>
