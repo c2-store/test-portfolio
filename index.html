@@ -5,6 +5,43 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Theo Vigouroux — Portfolio GEII</title>
 <style>
+.btn-detail {
+  margin-top: 10px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  border: 1px solid var(--primary, #2b6cb0);
+  color: var(--primary, #2b6cb0);
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btn-detail:hover {
+  background: var(--primary, #2b6cb0);
+  color: #fff;
+}
+
+.tl-detail {
+  display: none;
+  margin-top: 12px;
+  padding: 14px 16px;
+  border-left: 2px solid var(--primary, #2b6cb0);
+  background: rgba(0,0,0,0.02);
+  border-radius: 4px;
+}
+
+.tl-detail.open {
+  display: block;
+}
+
+.tl-detail h4 {
+  margin: 10px 0 4px;
+  font-size: 0.95rem;
+}
+.tl-detail h4:first-child {
+  margin-top: 0;
+}
 /* Barre de progression de traduction */
 .i18n-progress-bar {
   position: fixed;
