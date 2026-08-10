@@ -174,7 +174,6 @@
 <nav>
   <a class="logo" href="index.html">Theo Vigouroux</a>
   <div style="display:flex; align-items:center; gap:10px;">
-    <button class="lang-switch" id="langBtn" onclick="toggleLanguage()">EN</button>
     <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu">☰</button>
   </div>
   <ul>
@@ -183,6 +182,12 @@
     <li><a href="moi.html" data-i18n="nav_more">Un peu plus sur moi</a></li>
     <li><a href="assistant.html" data-i18n="nav_ai">Assistant IA</a></li>
     <li><a href="index.html#contact" data-i18n="nav_contact">Contact</a></li>
+    <select class="lang-select" id="langSelect" onchange="setLanguage(this.value)">
+  <option value="fr">🇫🇷 FR</option>
+  <option value="en">🇬🇧 EN</option>
+  <option value="es">🇪🇸 ES</option>
+  <option value="de">🇩🇪 DE</option>
+</select>
   </ul>
 </nav>
 
