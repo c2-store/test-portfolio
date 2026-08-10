@@ -1,5 +1,5 @@
 /* ============================================================================
-   I18N.JS — Traducteur automatique IA + menu mobile (avec Logs Debug)
+   I18N.JS — Traduction IA + Bouton dans la Nav Bar + Barre de chargement
    Portfolio de Théo Vigouroux
    ============================================================================ */
 
@@ -10,13 +10,54 @@
 
   var LANGS  = ["fr", "en", "es", "de", "it", "pt", "zh"];
   var FLAGS  = { fr:"🇫🇷", en:"🇬🇧", es:"🇪🇸", de:"🇩🇪", it:"🇮🇹", pt:"🇵🇹", zh:"🇨🇳" };
-  var NAMES  = { fr:"Français", en:"English", es:"Español", de:"Deutsch", it:"Italiano", pt:"Português", zh:"中文" };
+  var SHORT_NAMES = { fr:"FR", en:"EN", es:"ES", de:"DE", it:"IT", pt:"PT", zh:"ZH" };
+  var FULL_NAMES  = { fr:"Français", en:"English", es:"Español", de:"Deutsch", it:"Italiano", pt:"Português", zh:"中文" };
   var LANG_FULL_NAMES = {
     fr: "français", en: "English", es: "Spanish", de: "German",
     it: "Italian", pt: "Portuguese", zh: "Simplified Chinese"
   };
 
   var STORAGE_LANG = "tva_lang";
+
+  /* ════════════════════════════════════════════
+     BARRE DE CHARGEMENT DE TRADUCTION
+     ════════════════════════════════════════════ */
+
+  function getProgressBar() {
+    var pb = document.getElementById("i18nProgressBar");
+    if (!pb) {
+      pb = document.createElement("div");
+      pb.id = "i18nProgressBar";
+      var nav = document.querySelector("nav");
+      if (nav && nav.parentNode) {
+        nav.parentNode.insertBefore(pb, nav.nextSibling);
+      } else {
+        document.body.appendChild(pb);
+      }
+    }
+    return pb;
+  }
+
+  function startProgress() {
+    var pb = getProgressBar();
+    pb.style.width = "0%";
+    pb.classList.add("active");
+    setTimeout(function () { pb.style.width = "35%"; }, 30);
+  }
+
+  function midProgress() {
+    var pb = getProgressBar();
+    pb.style.width = "75%";
+  }
+
+  function endProgress() {
+    var pb = getProgressBar();
+    pb.style.width = "100%";
+    setTimeout(function () {
+      pb.classList.remove("active");
+      setTimeout(function () { pb.style.width = "0%"; }, 300);
+    }, 350);
+  }
 
   /* ════════════════════════════════════════════
      MENU MOBILE
@@ -89,7 +130,7 @@
   }
 
   /* ════════════════════════════════════════════
-     CACHE
+     CACHE LOCAL
      ════════════════════════════════════════════ */
 
   function cacheKey(lang, sourceHash) {
@@ -160,15 +201,18 @@
 
     var elements = Array.from(document.querySelectorAll("[data-i18n]"));
     if (!elements.length) {
-      console.warn("[i18n] Aucun élément avec l'attribut [data-i18n] n'a été trouvé dans le HTML.");
+      console.warn("[i18n] Aucun élément avec l'attribut [data-i18n] n'a été trouvé.");
       return Promise.resolve();
     }
+
+    startProgress();
 
     if (lang === "fr") {
       elements.forEach(function (el) {
         var orig = getSource(el);
         if (orig) applyText(el, orig);
       });
+      endProgress();
       return Promise.resolve();
     }
 
@@ -185,15 +229,18 @@
       elements.forEach(function (el, i) {
         if (cached[i]) applyText(el, cached[i]);
       });
+      endProgress();
       return Promise.resolve();
     }
 
     elements.forEach(function (el) { el.style.opacity = "0.4"; });
+    midProgress();
 
     return callTranslate(lang, texts).then(function (translations) {
       elements.forEach(function (el) { el.style.opacity = ""; });
       if (!translations) {
         console.error("[i18n] Échec de la traduction.");
+        endProgress();
         return;
       }
 
@@ -202,52 +249,59 @@
       elements.forEach(function (el, i) {
         if (translations[i]) applyText(el, translations[i]);
       });
+      endProgress();
     });
   }
 
   /* ════════════════════════════════════════════
-     SÉLECTEUR DE LANGUE FLOTTANT
+     BOUTON DANS LA NAV BAR + STYLES
      ════════════════════════════════════════════ */
 
   var style = document.createElement("style");
   style.textContent =
-    "#tvaFloat{position:fixed;bottom:20px;left:20px;z-index:9998;display:flex;align-items:center;gap:0;}" +
-    "#tvaFloatBtn{width:50px;height:50px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:rgba(12,12,14,.92);backdrop-filter:blur(12px);color:#f5f5f7;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(0,0,0,.45);transition:transform .2s,border-color .2s;}" +
-    "#tvaFloatBtn:hover{transform:scale(1.07);border-color:var(--blue,#2997ff)}" +
-    "#tvaFloatMenu{position:absolute;bottom:calc(100% + 10px);left:0;background:#0c0c0e;border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:6px;display:none;flex-direction:column;min-width:160px;box-shadow:0 12px 40px rgba(0,0,0,.6);z-index:9999;}" +
-    "#tvaFloatMenu.open{display:flex}" +
-    ".tva-lang-item{background:none;border:none;color:#f5f5f7;font-size:13px;padding:9px 12px;border-radius:8px;text-align:left;cursor:pointer;transition:background .15s;white-space:nowrap;}" +
-    ".tva-lang-item:hover{background:rgba(255,255,255,.08)}" +
-    ".tva-lang-item.cur{color:var(--blue,#2997ff);font-weight:600}";
+    "#i18nProgressBar{position:fixed;top:60px;left:0;width:0%;height:3px;background:var(--blue,#2997ff);box-shadow:0 0 10px rgba(41,151,255,0.8);z-index:10000;opacity:0;transition:width .3s ease,opacity .3s ease;pointer-events:none;}" +
+    "#i18nProgressBar.active{opacity:1;}" +
+    ".tva-nav-lang{position:relative;display:inline-flex;align-items:center;list-style:none;margin-left:10px;}" +
+    "#tvaNavBtn{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#f5f5f7;padding:6px 12px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all 0.2s ease;backdrop-filter:blur(8px);}" +
+    "#tvaNavBtn:hover{background:rgba(255,255,255,0.15);border-color:var(--blue,#2997ff);color:#fff;}" +
+    ".tva-arrow{font-size:10px;opacity:0.7;}" +
+    "#tvaNavMenu{position:absolute;top:calc(100% + 10px);right:0;background:rgba(12,12,14,0.95);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:6px;display:none;flex-direction:column;gap:2px;min-width:150px;box-shadow:0 10px 30px rgba(0,0,0,0.6);z-index:9999;}" +
+    "#tvaNavMenu.open{display:flex;}" +
+    ".tva-lang-item{background:none;border:none;color:#f5f5f7;font-size:13px;padding:8px 12px;border-radius:8px;text-align:left;cursor:pointer;transition:background 0.15s;white-space:nowrap;display:flex;align-items:center;gap:8px;}" +
+    ".tva-lang-item:hover{background:rgba(255,255,255,0.1);}" +
+    ".tva-lang-item.cur{color:var(--blue,#2997ff);font-weight:600;background:rgba(41,151,255,0.1);}";
   document.head.appendChild(style);
 
-  function buildSwitcher() {
-    if (document.getElementById("tvaFloat")) return;
+  function buildNavSwitcher() {
+    var navTarget = document.querySelector("nav ul") || document.querySelector("nav");
+    if (!navTarget) return;
+
+    if (document.getElementById("tvaNavLang")) return;
+
     var cur = getCurrentLang();
 
-    var wrap = document.createElement("div");
-    wrap.id = "tvaFloat";
-
-    var menu = document.createElement("div");
-    menu.id = "tvaFloatMenu";
-    menu.innerHTML = LANGS.map(function (l) {
-      return (
-        '<button type="button" class="tva-lang-item' + (l === cur ? " cur" : "") + '" data-l="' + l + '">' +
-          (FLAGS[l] || "") + " " + (NAMES[l] || l) +
-        "</button>"
-      );
-    }).join("");
+    var container = document.createElement(navTarget.tagName === "UL" ? "li" : "div");
+    container.id = "tvaNavLang";
+    container.className = "tva-nav-lang";
 
     var btn = document.createElement("button");
     btn.type = "button";
-    btn.id = "tvaFloatBtn";
-    btn.setAttribute("aria-label", "Changer de langue");
-    btn.setAttribute("aria-haspopup", "true");
-    btn.textContent = FLAGS[cur] || "🌐";
+    btn.id = "tvaNavBtn";
+    btn.innerHTML = (FLAGS[cur] || "🌐") + ' <span>' + (SHORT_NAMES[cur] || cur.toUpperCase()) + '</span> <span class="tva-arrow">▾</span>';
 
-    wrap.appendChild(menu);
-    wrap.appendChild(btn);
-    document.body.appendChild(wrap);
+    var menu = document.createElement("div");
+    menu.id = "tvaNavMenu";
+    menu.innerHTML = LANGS.map(function (l) {
+      return (
+        '<button type="button" class="tva-lang-item' + (l === cur ? " cur" : "") + '" data-l="' + l + '">' +
+          (FLAGS[l] || "") + " " + (FULL_NAMES[l] || l) +
+        '</button>'
+      );
+    }).join("");
+
+    container.appendChild(btn);
+    container.appendChild(menu);
+    navTarget.appendChild(container);
 
     btn.addEventListener("click", function (e) {
       e.stopPropagation();
@@ -258,12 +312,12 @@
       item.addEventListener("click", function () {
         var selectedLang = item.getAttribute("data-l");
         menu.classList.remove("open");
-        
+
         menu.querySelectorAll(".tva-lang-item").forEach(function (i) {
           i.classList.toggle("cur", i.getAttribute("data-l") === selectedLang);
         });
-        
-        btn.textContent = FLAGS[selectedLang] || "🌐";
+
+        btn.innerHTML = (FLAGS[selectedLang] || "🌐") + ' <span>' + (SHORT_NAMES[selectedLang] || selectedLang.toUpperCase()) + '</span> <span class="tva-arrow">▾</span>';
         saveLang(selectedLang);
         applyLang(selectedLang);
       });
@@ -271,7 +325,7 @@
   }
 
   document.addEventListener("click", function () {
-    var d = document.getElementById("tvaFloatMenu");
+    var d = document.getElementById("tvaNavMenu");
     if (d) d.classList.remove("open");
   });
 
@@ -281,7 +335,7 @@
 
   function init() {
     initMobileMenu();
-    buildSwitcher();
+    buildNavSwitcher();
 
     var lang = getCurrentLang();
     applyLang(lang).catch(function () {});
