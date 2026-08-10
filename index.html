@@ -6,41 +6,72 @@
 <title>Theo Vigouroux — Portfolio GEII</title>
 <style>
 .btn-detail {
-  margin-top: 10px;
-  padding: 6px 14px;
-  font-size: 0.85rem;
-  border: 1px solid var(--primary, #2b6cb0);
-  color: var(--primary, #2b6cb0);
-  background: transparent;
-  border-radius: 6px;
+  margin-top: 14px;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  color: var(--gray);
+  background: var(--card);
+  border-radius: 980px;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all .2s ease;
 }
-
 .btn-detail:hover {
-  background: var(--primary, #2b6cb0);
-  color: #fff;
+  border-color: rgba(41,151,255,.4);
+  color: var(--white);
+  background: rgba(41,151,255,.08);
+}
+.btn-detail .chevron {
+  font-size: 10px;
+  transition: transform .3s ease;
+}
+.btn-detail.open .chevron {
+  transform: rotate(180deg);
 }
 
+.tl-detail-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .4s cubic-bezier(.4,0,.2,1);
+}
+.tl-detail-wrap.open {
+  grid-template-rows: 1fr;
+}
+.tl-detail-inner {
+  overflow: hidden;
+}
 .tl-detail {
-  display: none;
-  margin-top: 12px;
-  padding: 14px 16px;
-  border-left: 2px solid var(--primary, #2b6cb0);
-  background: rgba(0,0,0,0.02);
-  border-radius: 4px;
+  margin-top: 16px;
+  padding: 22px 26px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  transition: border-color .3s;
 }
-
-.tl-detail.open {
-  display: block;
+.tl-detail-wrap.open .tl-detail {
+  border-color: rgba(41,151,255,.2);
 }
-
 .tl-detail h4 {
-  margin: 10px 0 4px;
-  font-size: 0.95rem;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin: 20px 0 8px;
 }
-.tl-detail h4:first-child {
-  margin-top: 0;
+.tl-detail h4:first-child { margin-top: 0; }
+.tl-detail p {
+  color: var(--gray);
+  font-size: 14px;
+  line-height: 1.65;
+  font-weight: 300;
+}
+.tl-detail .quote {
+  margin: 20px 0 0;
 }
 /* Barre de progression de traduction */
 .i18n-progress-bar {
