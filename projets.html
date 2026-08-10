@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Projets — Theo Vigouroux</title>
+
+<!-- Bibliothèque i18next via CDN -->
+<script src="https://unpkg.com/i18next/i18next.min.js"></script>
+
 <style>
   :root{--bg:#000;--white:#f5f5f7;--gray:#86868b;--blue:#2997ff;--card:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.08)}
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -414,140 +418,159 @@
   });
 
   // ==========================================
-  // 2. DICTIONNAIRE DE TRADUCTION (FR / EN)
+  // 2. CONFIGURATION ET INITIALISATION i18next
   // ==========================================
-  const translations = {
+  const resources = {
     fr: {
-      nav_about: "Qui suis-je ?",
-      nav_projects: "Projets",
-      nav_more: "Un peu plus sur moi",
-      nav_assistant: "Assistant IA",
-      nav_contact: "Contact",
+      translation: {
+        nav_about: "Qui suis-je ?",
+        nav_projects: "Projets",
+        nav_more: "Un peu plus sur moi",
+        nav_assistant: "Assistant IA",
+        nav_contact: "Contact",
 
-      hero_tag: "Theo Vigouroux · Réalisations",
-      hero_title: "Mes Projets.",
-      hero_sub: "De l'idée au prototype — chaque projet est une étape vers l'ingénieur de demain.",
+        hero_tag: "Theo Vigouroux · Réalisations",
+        hero_title: "Mes Projets.",
+        hero_sub: "De l'idée au prototype — chaque projet est une étape vers l'ingénieur de demain.",
 
-      filter_all: "Tous les projets",
-      filter_geii: "BUT GEII",
-      filter_sti2d: "STI2D",
-      filter_goal: "Objectif pro",
+        filter_all: "Tous les projets",
+        filter_geii: "BUT GEII",
+        filter_sti2d: "STI2D",
+        filter_goal: "Objectif pro",
 
-      sep_geii: "BUT GEII — 2025 / Présent",
-      sep_sti2d: "Bac STI2D — 2023 / 2025",
-      sep_goal: "Projet professionnel",
+        sep_geii: "BUT GEII — 2025 / Présent",
+        sep_sti2d: "Bac STI2D — 2023 / 2025",
+        sep_goal: "Projet professionnel",
 
-      p1_title: "Robot suiveur de ligne — priorité à droite",
-      p1_desc: "Robot mobile autonome (Arduino Uno) suivant une ligne noire sur fond blanc grâce à deux capteurs IR, avec application d'une règle de priorité à droite aux intersections, vitesse réglable par potentiomètre et arrêt immédiat sur détection d'obstacle au télémètre.",
-      
-      p2_title: "Jeu Invaders en C",
-      p2_desc: "Développement from scratch d'un Space Invaders en langage C pur. Gestion de la logique de jeu : collisions, vagues ennemies, score, vies. Affichage en rendu console avec gestion des entrées clavier en temps réel.",
+        p1_title: "Robot suiveur de ligne — priorité à droite",
+        p1_desc: "Robot mobile autonome (Arduino Uno) suivant une ligne noire sur fond blanc grâce à deux capteurs IR, avec application d'une règle de priorité à droite aux intersections, vitesse réglable par potentiomètre et arrêt immédiat sur détection d'obstacle au télémètre.",
+        
+        p2_title: "Jeu Invaders en C",
+        p2_desc: "Développement from scratch d'un Space Invaders en langage C pur. Gestion de la logique de jeu : collisions, vagues ennemies, score, vies. Affichage en rendu console avec gestion des entrées clavier en temps réel.",
 
-      p3_title: "Métronome électronique de précision",
-      p3_desc: "Conception d'un métronome électronique basé sur un double NE555 en montage astable. Générateur de tempo (BPM), générateur de son (250 Hz - 10 kHz), étage de commutation à transistor et haut-parleur. Calculs théoriques, simulation et validation expérimentale sur plaque à trous.",
+        p3_title: "Métronome électronique de précision",
+        p3_desc: "Conception d'un métronome électronique basé sur un double NE555 en montage astable. Générateur de tempo (BPM), générateur de son (250 Hz - 10 kHz), étage de commutation à transistor et haut-parleur. Calculs théoriques, simulation et validation expérimentale sur plaque à trous.",
 
-      p4_title: "Robot à réaction sonore asymétrique",
-      p4_desc: "Robot mobile à deux moteurs (MG/MD) capable de réagir à un bruit ou un claquement. Une chaîne capteur de bruit + monostable NE555 (45 µs) génère une impulsion qui coupe brièvement le moteur gauche via un hacheur, tandis qu'un inverseur maintient le moteur droit actif : le robot dévie sa trajectoire au bruit.",
+        p4_title: "Robot à réaction sonore asymétrique",
+        p4_desc: "Robot mobile à deux moteurs (MG/MD) capable de réagir à un bruit ou un claquement. Une chaîne capteur de bruit + monostable NE555 (45 µs) génère une impulsion qui coupe brièvement le moteur gauche via un hacheur, tandis qu'un inverseur maintient le moteur droit actif : le robot dévie sa trajectoire au bruit.",
 
-      p5_title: "Skateboard électrique",
-      p5_desc: "Conception et réalisation d'un skateboard électrique complet piloté par Raspberry Pi Pico en MicroPython. Contrôle de la motorisation brushless, gestion de la batterie LiPo, interface de commande sans fil et régulation de vitesse.",
+        p5_title: "Skateboard électrique",
+        p5_desc: "Conception et réalisation d'un skateboard électrique complet piloté par Raspberry Pi Pico en MicroPython. Contrôle de la motorisation brushless, gestion de la batterie LiPo, interface de commande sans fil et régulation de vitesse.",
 
-      p6_title: "Amplificateur sonore éco-conçu",
-      p6_desc: "Conception d'un amplificateur audio fonctionnel sous contrainte forte d'éco-conception : châssis 100% carton recyclé, composants low-power. Étude du compromis performance audio vs impact environnemental.",
+        p6_title: "Amplificateur sonore éco-conçu",
+        p6_desc: "Conception d'un amplificateur audio fonctionnel sous contrainte forte d'éco-conception : châssis 100% carton recyclé, composants low-power. Étude du compromis performance audio vs impact environnemental.",
 
-      p7_title: "Modélisation 3D SolidWorks",
-      p7_desc: "Conception et modélisation 3D de coques de protection et supports caméras via SolidWorks. Travail sur les contraintes mécaniques, tolérances dimensionnelles et validation fonctionnelle avant fabrication.",
+        p7_title: "Modélisation 3D SolidWorks",
+        p7_desc: "Conception et modélisation 3D de coques de protection et supports caméras via SolidWorks. Travail sur les contraintes mécaniques, tolérances dimensionnelles et validation fonctionnelle avant fabrication.",
 
-      goal_lbl: "Ambition",
-      goal_title: "Cadre Ingénieur chez Air France",
-      goal_desc: "Mon objectif est d'intégrer une grande école d'ingénieurs ou un Master spécialisé afin d'accéder à un poste de cadre ingénieur au sein du groupe Air France. Je souhaite mettre mes compétences en gestion de projet et en systèmes automatisés au service de l'excellence opérationnelle et de la maintenance aéronautique de demain.",
-      goal_tag: "Objectif long terme",
+        goal_lbl: "Ambition",
+        goal_title: "Cadre Ingénieur chez Air France",
+        goal_desc: "Mon objectif est d'intégrer une grande école d'ingénieurs ou un Master spécialisé afin d'accéder à un poste de cadre ingénieur au sein du groupe Air France. Je souhaite mettre mes compétences en gestion de projet et en systèmes automatisés au service de l'excellence opérationnelle et de la maintenance aéronautique de demain.",
+        goal_tag: "Objectif long terme",
 
-      btn_detail: "Voir le détail →",
-      status_done: "Terminé",
+        btn_detail: "Voir le détail →",
+        status_done: "Terminé",
 
-      m_tag: "SAE 1 · BUT GEII · Binôme 4",
-      m_title: "Métronome électronique de précision",
-      m_intro: "Conception complète d'un métronome électronique à base de deux NE555 montés en astable : un premier oscillateur cadence le tempo (les battements), un second génère le son, et un étage à transistor commute le haut-parleur pendant chaque battement. Alimentation 15 V.",
-      m_s1: "Schéma fonctionnel",
-      m_s2: "Astable 1 — Générateur de tempo",
-      m_s3: "Astable 2 — Générateur de son",
-      m_s4: "Conclusion & Améliorations",
-      m_c1: "Le prototype sur plaque à trous valide la chaîne fonctionnelle (Générateur BPM → Inverseur → Générateur Son → Étage de puissance → Haut-parleur). Pour corriger le tempo maximal trop lent, le remplacement de C1 par une capacité de 10 µF à 22 µF permet de couvrir l'intégralité du cahier des charges (40 à 208 BPM)."
+        m_tag: "SAE 1 · BUT GEII · Binôme 4",
+        m_title: "Métronome électronique de précision",
+        m_intro: "Conception complète d'un métronome électronique à base de deux NE555 montés en astable : un premier oscillateur cadence le tempo (les battements), un second génère le son, et un étage à transistor commute le haut-parleur pendant chaque battement. Alimentation 15 V.",
+        m_s1: "Schéma fonctionnel",
+        m_s2: "Astable 1 — Générateur de tempo",
+        m_s3: "Astable 2 — Générateur de son",
+        m_s4: "Conclusion & Améliorations",
+        m_c1: "Le prototype sur plaque à trous valide la chaîne fonctionnelle (Générateur BPM → Inverseur → Générateur Son → Étage de puissance → Haut-parleur). Pour corriger le tempo maximal trop lent, le remplacement de C1 par une capacité de 10 µF à 22 µF permet de couvrir l'intégralité du cahier des charges (40 à 208 BPM)."
+      }
     },
-
     en: {
-      nav_about: "About me",
-      nav_projects: "Projects",
-      nav_more: "More about me",
-      nav_assistant: "AI Assistant",
-      nav_contact: "Contact",
+      translation: {
+        nav_about: "About me",
+        nav_projects: "Projects",
+        nav_more: "More about me",
+        nav_assistant: "AI Assistant",
+        nav_contact: "Contact",
 
-      hero_tag: "Theo Vigouroux · Portfolio",
-      hero_title: "My Projects.",
-      hero_sub: "From idea to prototype — every project is a step toward tomorrow's engineer.",
+        hero_tag: "Theo Vigouroux · Portfolio",
+        hero_title: "My Projects.",
+        hero_sub: "From idea to prototype — every project is a step toward tomorrow's engineer.",
 
-      filter_all: "All projects",
-      filter_geii: "BUT GEII",
-      filter_sti2d: "STI2D",
-      filter_goal: "Career Goal",
+        filter_all: "All projects",
+        filter_geii: "BUT GEII",
+        filter_sti2d: "STI2D",
+        filter_goal: "Career Goal",
 
-      sep_geii: "BUT GEII — 2025 / Present",
-      sep_sti2d: "High School STI2D — 2023 / 2025",
-      sep_goal: "Career Goal",
+        sep_geii: "BUT GEII — 2025 / Present",
+        sep_sti2d: "High School STI2D — 2023 / 2025",
+        sep_goal: "Career Goal",
 
-      p1_title: "Line follower robot — Right-of-way priority",
-      p1_desc: "Autonomous mobile robot (Arduino Uno) following a black line on a white background using two IR sensors, enforcing right-of-way rules at intersections, adjustable speed via potentiometer, and instant stop upon obstacle detection via ultrasonic sensor.",
+        p1_title: "Line follower robot — Right-of-way priority",
+        p1_desc: "Autonomous mobile robot (Arduino Uno) following a black line on a white background using two IR sensors, enforcing right-of-way rules at intersections, adjustable speed via potentiometer, and instant stop upon obstacle detection via ultrasonic sensor.",
 
-      p2_title: "Invaders Game in C",
-      p2_desc: "Built from scratch Space Invaders game in pure C. Game logic implementation: collisions, enemy waves, score, lives system. Real-time console rendering and keyboard input handling.",
+        p2_title: "Invaders Game in C",
+        p2_desc: "Built from scratch Space Invaders game in pure C. Game logic implementation: collisions, enemy waves, score, lives system. Real-time console rendering and keyboard input handling.",
 
-      p3_title: "Precision Electronic Metronome",
-      p3_desc: "Design of an electronic metronome based on a dual NE555 in astable mode. Tempo generator (BPM), sound generator (250 Hz - 10 kHz), transistor switching stage, and speaker. Theoretical calculations, simulation, and breadboard testing.",
+        p3_title: "Precision Electronic Metronome",
+        p3_desc: "Design of an electronic metronome based on a dual NE555 in astable mode. Tempo generator (BPM), sound generator (250 Hz - 10 kHz), transistor switching stage, and speaker. Theoretical calculations, simulation, and breadboard testing.",
 
-      p4_title: "Asymmetric Sound-Reactive Robot",
-      p4_desc: "Two-wheel drive mobile robot capable of reacting to noise or claps. A sound sensor + NE555 monostable circuit generates a pulse that briefly cuts off the left motor via a chopper, while an inverter keeps the right motor active: changing trajectory upon sound.",
+        p4_title: "Asymmetric Sound-Reactive Robot",
+        p4_desc: "Two-wheel drive mobile robot capable of reacting to noise or claps. A sound sensor + NE555 monostable circuit generates a pulse that briefly cuts off the left motor via a chopper, while an inverter keeps the right motor active: changing trajectory upon sound.",
 
-      p5_title: "Electric Skateboard",
-      p5_desc: "Design and build of a complete electric skateboard driven by Raspberry Pi Pico in MicroPython. Brushless motor control, LiPo battery management, wireless control interface, and speed regulation.",
+        p5_title: "Electric Skateboard",
+        p5_desc: "Design and build of a complete electric skateboard driven by Raspberry Pi Pico in MicroPython. Brushless motor control, LiPo battery management, wireless control interface, and speed regulation.",
 
-      p6_title: "Eco-designed Audio Amplifier",
-      p6_desc: "Audio amplifier engineered under strict eco-design constraints: 100% recycled cardboard chassis and low-power components. Trade-off analysis between acoustic performance and environmental impact.",
+        p6_title: "Eco-designed Audio Amplifier",
+        p6_desc: "Audio amplifier engineered under strict eco-design constraints: 100% recycled cardboard chassis and low-power components. Trade-off analysis between acoustic performance and environmental impact.",
 
-      p7_title: "SolidWorks 3D Modeling",
-      p7_desc: "3D CAD modeling of protective enclosures and camera mounts using SolidWorks. Mechanical constraint analysis, dimensional tolerances, and functional validation prior to manufacturing.",
+        p7_title: "SolidWorks 3D Modeling",
+        p7_desc: "3D CAD modeling of protective enclosures and camera mounts using SolidWorks. Mechanical constraint analysis, dimensional tolerances, and functional validation prior to manufacturing.",
 
-      goal_lbl: "Ambition",
-      goal_title: "Engineering Manager at Air France",
-      goal_desc: "My objective is to join a top engineering school or specialized Master's program to access an engineering manager role within Air France Group. I aim to leverage my project management and automated systems skills to drive operational excellence and future aeronautical maintenance.",
-      goal_tag: "Long-term goal",
+        goal_lbl: "Ambition",
+        goal_title: "Engineering Manager at Air France",
+        goal_desc: "My objective is to join a top engineering school or specialized Master's program to access an engineering manager role within Air France Group. I aim to leverage my project management and automated systems skills to drive operational excellence and future aeronautical maintenance.",
+        goal_tag: "Long-term goal",
 
-      btn_detail: "View details →",
-      status_done: "Completed",
+        btn_detail: "View details →",
+        status_done: "Completed",
 
-      m_tag: "SAE 1 · BUT GEII · Pair 4",
-      m_title: "Precision Electronic Metronome",
-      m_intro: "Complete design of an electronic metronome using two NE555 timers in astable configuration: the first oscillator sets the tempo (beats), the second generates the audio frequency, and a transistor stage drives the speaker during beats. 15 V power supply.",
-      m_s1: "Functional Diagram",
-      m_s2: "Astable 1 — Tempo Generator",
-      m_s3: "Astable 2 — Sound Generator",
-      m_s4: "Conclusion & Improvements",
-      m_c1: "The breadboard prototype validates the entire functional chain (BPM Generator → Inverter → Sound Generator → Power Stage → Speaker). To fix the slow maximum tempo, replacing C1 with a 10 µF to 22 µF capacitor covers the entire specification range (40 to 208 BPM)."
+        m_tag: "SAE 1 · BUT GEII · Pair 4",
+        m_title: "Precision Electronic Metronome",
+        m_intro: "Complete design of an electronic metronome using two NE555 timers in astable configuration: the first oscillator sets the tempo (beats), the second generates the audio frequency, and a transistor stage drives the speaker during beats. 15 V power supply.",
+        m_s1: "Functional Diagram",
+        m_s2: "Astable 1 — Tempo Generator",
+        m_s3: "Astable 2 — Sound Generator",
+        m_s4: "Conclusion & Improvements",
+        m_c1: "The breadboard prototype validates the entire functional chain (BPM Generator → Inverter → Sound Generator → Power Stage → Speaker). To fix the slow maximum tempo, replacing C1 with a 10 µF to 22 µF capacitor covers the entire specification range (40 to 208 BPM)."
+      }
     }
   };
 
-  let currentLang = 'fr';
+  // Initialisation d'i18next
+  i18next.init({
+    lng: 'fr', // Langue par défaut
+    fallbackLng: 'fr',
+    resources: resources
+  }, function(err, t) {
+    updateContent();
+  });
 
-  function toggleLanguage() {
-    currentLang = currentLang === 'fr' ? 'en' : 'fr';
-    document.getElementById('langBtn').textContent = currentLang === 'fr' ? 'EN' : 'FR';
-    document.documentElement.lang = currentLang;
-
+  // Mise à jour de tous les éléments possédant data-i18n
+  function updateContent() {
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
-      if (translations[currentLang][key]) {
-        el.textContent = translations[currentLang][key];
+      if (i18next.exists(key)) {
+        el.textContent = i18next.t(key);
       }
+    });
+  }
+
+  // Fonction de bascule de langue via i18next
+  function toggleLanguage() {
+    const currentLang = i18next.language;
+    const nextLang = currentLang === 'fr' ? 'en' : 'fr';
+
+    i18next.changeLanguage(nextLang, () => {
+      document.getElementById('langBtn').textContent = nextLang === 'fr' ? 'EN' : 'FR';
+      document.documentElement.lang = nextLang;
+      updateContent();
     });
   }
 
