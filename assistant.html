@@ -81,19 +81,36 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
   <a class="logo" href="index.html">Theo Vigouroux</a>
   <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu">☰</button>
   <ul>
-    <li><a href="index.html#about">Qui suis-je ?</a></li>
-    <li><a href="projets.html">Projets</a></li>
-    <li><a href="moi.html">Un peu plus sur moi</a></li>
-    <li><a href="assistant.html" class="active">Assistant IA</a></li>
-    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="index.html#about" data-i18n>Qui suis-je ?</a></li>
+    <li><a href="projets.html" data-i18n>Projets</a></li>
+    <li><a href="moi.html" data-i18n>Un peu plus sur moi</a></li>
+    <li><a href="assistant.html" class="active" data-i18n>Assistant IA</a></li>
+    <li><a href="index.html#contact" data-i18n>Contact</a></li>
+    
+    <!-- Bouton de traduction dans la nav bar -->
+    <li class="tva-nav-lang">
+      <button type="button" id="tvaNavBtn">🇫🇷 FR ▾</button>
+      <div id="tvaNavMenu">
+        <button type="button" class="tva-lang-item" data-l="fr">🇫🇷 Français</button>
+        <button type="button" class="tva-lang-item" data-l="en">🇬🇧 English</button>
+        <button type="button" class="tva-lang-item" data-l="es">🇪🇸 Español</button>
+        <button type="button" class="tva-lang-item" data-l="de">🇩🇪 Deutsch</button>
+        <button type="button" class="tva-lang-item" data-l="it">🇮🇹 Italiano</button>
+        <button type="button" class="tva-lang-item" data-l="pt">🇵🇹 Português</button>
+        <button type="button" class="tva-lang-item" data-l="zh">🇨🇳 中文</button>
+      </div>
+    </li>
   </ul>
 </nav>
 
+<!-- Barre de chargement bleue sous la nav bar -->
+<div id="i18nProgressBar"></div>
+
 <div class="hero">
   <div class="hero-glow"></div>
-  <p class="hero-tag"><span class="live-dot"></span>Assistant IA &middot; disponible 24/7</p>
-  <h1>Discute avec mon assistant.</h1>
-  <p class="hero-sub">Une IA qui connaît mon parcours, mes compétences et chacun de mes projets dans le détail technique. Pose-lui n'importe quelle question.</p>
+  <p class="hero-tag"><span class="live-dot"></span><span data-i18n>Assistant IA &middot; disponible 24/7</span></p>
+  <h1 data-i18n>Discute avec mon assistant.</h1>
+  <p class="hero-sub" data-i18n>Une IA qui connaît mon parcours, mes compétences et chacun de mes projets dans le détail technique. Pose-lui n'importe quelle question.</p>
 </div>
 
 <section class="sec">
@@ -102,34 +119,34 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
     <div class="teaser-item">
       <span class="teaser-icon">👋</span>
       <div>
-        <div class="teaser-title">Me présenter</div>
-        <div class="teaser-sub">Parcours, objectifs, soft skills</div>
+        <div class="teaser-title" data-i18n>Me présenter</div>
+        <div class="teaser-sub" data-i18n>Parcours, objectifs, soft skills</div>
       </div>
     </div>
     <div class="teaser-item">
       <span class="teaser-icon">🔧</span>
       <div>
-        <div class="teaser-title">Expliquer mes projets</div>
-        <div class="teaser-sub">Schémas, calculs, composants</div>
+        <div class="teaser-title" data-i18n>Expliquer mes projets</div>
+        <div class="teaser-sub" data-i18n>Schémas, calculs, composants</div>
       </div>
     </div>
     <div class="teaser-item">
       <span class="teaser-icon">💬</span>
       <div>
-        <div class="teaser-title">Répondre à tout</div>
-        <div class="teaser-sub">Y compris hors-sujet</div>
+        <div class="teaser-title" data-i18n>Répondre à tout</div>
+        <div class="teaser-sub" data-i18n>Y compris hors-sujet</div>
       </div>
     </div>
   </div>
 
   <div id="tva-embed"></div>
 
-  <p class="note">Propulsé par Google Gemini &middot; pour parler en privé avec Théo, utilise la page <a href="index.html#contact">Contact</a></p>
+  <p class="note"><span data-i18n>Propulsé par Google Gemini &middot; pour parler en privé avec Théo, utilise la page</span> <a href="index.html#contact" data-i18n>Contact</a></p>
 
 </section>
 
 <footer>
-  <p>&copy; 2025 &mdash; Theo Vigouroux &middot; Portfolio GEII</p>
+  <p data-i18n>&copy; 2025 &mdash; Theo Vigouroux &middot; Portfolio GEII</p>
 </footer>
 
 <script>
