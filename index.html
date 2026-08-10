@@ -694,10 +694,10 @@ fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json")
     });
   });
 </script>
-  <script>
+ <script>
 function toggleDetail(id) {
-  const el = document.getElementById(id);
-  el.classList.toggle('open');
+  document.getElementById('wrap-' + id).classList.toggle('open');
+  document.getElementById('btn-' + id).classList.toggle('open');
 }
 </script>
 </body>
