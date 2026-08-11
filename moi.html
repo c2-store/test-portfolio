@@ -429,14 +429,64 @@ var svg=d3.select("#worldmap").attr("viewBox","0 0 "+W+" "+H);
 var proj=d3.geoNaturalEarth1().scale(153).translate([W/2,H/2]);
 var pathGen=d3.geoPath().projection(proj);
 var tip=document.getElementById("map-tooltip");
+
 fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json")
-  .then(function(r){return r.json()})
+  .then(function(r){ return r.json(); })
   .then(function(world){
-    var countries=topojson.feature(world,world.objects.countries);
-    svg.append("path").datum(d3.geoGraticule()()).attr("d",pathGen);
+    var countries = topojson.feature(world, world.objects.countries);
+
+    var graticule = d3.geoGraticule()();
+    svg.append("path").datum(graticule)
+      .attr("d", pathGen)
+      .attr("fill","none")
+      .attr("stroke","rgba(255,255,255,0.04)")
+      .attr("stroke-width","0.5");
+
+    svg.selectAll(".map-country")
+      .data(countries.features)
+      .enter().append("path")
+      .attr("class","map-country")
+      .attr("d", pathGen);
+
+    destinations.forEach(function(d, i){
+      var coords = proj([d.lon, d.lat]);
+      if(!coords) return;
+      var x = coords[0], y = coords[1];
+
+      var pulse = svg.append("circle")
+        .attr("cx", x).attr("cy", y)
+        .attr("r", 4)
+        .attr("class","map-pulse")
+        .attr("fill","rgba(255,59,48,0.4)")
+        .style("pointer-events","none");
+
+      function animatePulse(){
+        pulse.attr("r",4).attr("opacity",0.8)
+          .transition().duration(1800).delay(i * 80)
+          .attr("r", 18).attr("opacity", 0)
+          .on("end", animatePulse);
+      }
+      setTimeout(animatePulse, i * 80);
+
+      svg.append("circle")
+        .attr("cx", x).attr("cy", y)
+        .attr("r", 5)
+        .attr("class","map-dot")
+        .attr("fill","#ff3b30")
+        .style("filter","drop-shadow(0 0 5px rgba(255,59,48,0.9))")
+        .on("mouseover", function(){
+          var label = d.name + (d.count ? " (" + d.count + ")" : "");
+          if (tip) {
+            tip.textContent = label;
+            tip.style.opacity = "1";
+          }
+        })
+        .on("mouseout", function(){
+          if (tip) tip.style.opacity = "0";
+        });
+    });
   });
 </script>
-
 <script defer src="i18n.js"></script>
 </body>
 </html>
