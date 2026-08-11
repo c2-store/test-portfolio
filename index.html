@@ -31,52 +31,25 @@
 }
 .btn-detail.open .chevron {
   transform: rotate(180deg);
-}
-  .tl-detail-wrap {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows .4s cubic-bezier(.4,0,.2,1);
-}
-.tl-detail-wrap.open {
-  grid-template-rows: 1fr;
-}
-.tl-detail-inner {
-  overflow: hidden;
-}
-.tl-detail {
-  margin-top: 16px;
-  padding: 22px 26px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  transition: border-color .3s;
-  opacity: 0;
-  transform: translateY(-8px);
-  transition: opacity .35s ease .1s, transform .35s ease .1s, border-color .3s;
-}
-.tl-detail-wrap.open .tl-detail {
-  opacity: 1;
-  transform: translateY(0);
-  border-color: rgba(41,151,255,.2);
-}
-.tl-detail h4 {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--blue);
-  margin: 20px 0 8px;
-}
-.tl-detail h4:first-child { margin-top: 0; }
-.tl-detail p {
-  color: var(--gray);
-  font-size: 14px;
-  line-height: 1.65;
-  font-weight: 300;
-}
-.tl-detail .quote {
-  margin: 20px 0 0;
-}
+<h4 data-i18n>Avis de mes collegues</h4>
+<!-- AVIS COLLEGUES : dupliquez .avis-card pour chaque temoignage -->
+<div class="avis-grid">
+
+  <div class="avis-card">
+    <div class="avis-header">
+      <img class="avis-avatar" src="images/avis-nom-prenom.jpg" alt="Photo de Nom Prenom" onerror="this.outerHTML='<div class=\'avis-avatar initials\'>NP</div>'">
+      <div class="avis-id">
+        <div class="avis-name">Nom Prenom</div>
+        <div class="avis-role">Poste, Caisse d'Epargne</div>
+      </div>
+      <a href="https://linkedin.com/in/lien-du-profil" target="_blank" class="avis-linkedin" aria-label="Profil LinkedIn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+      </a>
+    </div>
+    <p class="avis-text">« Votre témoignage ici — demandez à un collègue ou responsable de décrire votre travail en une phrase. »</p>
+  </div>
+
+</div>
 /* Barre de progression de traduction */
 .i18n-progress-bar {
   position: fixed;
