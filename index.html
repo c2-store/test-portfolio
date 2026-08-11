@@ -31,40 +31,138 @@
 }
 .btn-detail.open .chevron {
   transform: rotate(180deg);
-<h4 data-i18n>Avis de mes collegues</h4>
-<!-- AVIS COLLEGUES : dupliquez .avis-card pour chaque temoignage -->
-<div class="avis-grid">
-
-  <div class="avis-card">
-    <div class="avis-header">
-      <img class="avis-avatar" src="images/avis-nom-prenom.jpg" alt="Photo de Nom Prenom" onerror="this.outerHTML='<div class=\'avis-avatar initials\'>NP</div>'">
-      <div class="avis-id">
-        <div class="avis-name">Nom Prenom</div>
-        <div class="avis-role">Poste, Caisse d'Epargne</div>
-      </div>
-      <a href="https://linkedin.com/in/lien-du-profil" target="_blank" class="avis-linkedin" aria-label="Profil LinkedIn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
-      </a>
-    </div>
-    <p class="avis-text">« Votre témoignage ici — demandez à un collègue ou responsable de décrire votre travail en une phrase. »</p>
-  </div>
-
-</div>
+}
+.tl-detail-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .4s cubic-bezier(.4,0,.2,1);
+}
+.tl-detail-wrap.open {
+  grid-template-rows: 1fr;
+}
+.tl-detail-inner {
+  overflow: hidden;
+}
+.tl-detail {
+  margin-top: 16px;
+  padding: 22px 26px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity .35s ease .1s, transform .35s ease .1s, border-color .3s;
+}
+.tl-detail-wrap.open .tl-detail {
+  opacity: 1;
+  transform: translateY(0);
+  border-color: rgba(41,151,255,.2);
+}
+.tl-detail h4 {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin: 20px 0 8px;
+}
+.tl-detail h4:first-child { margin-top: 0; }
+.tl-detail p {
+  color: var(--gray);
+  font-size: 14px;
+  line-height: 1.65;
+  font-weight: 300;
+}
+.tl-detail .quote {
+  margin: 20px 0 0;
+}
+.avis-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+.avis-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color .3s, transform .2s;
+}
+.avis-card:hover {
+  border-color: rgba(41,151,255,.3);
+  transform: translateY(-2px);
+}
+.avis-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.avis-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+  background: var(--card);
+}
+.avis-avatar.initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--blue);
+  background: rgba(41,151,255,.12);
+}
+.avis-id { min-width: 0; }
+.avis-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.avis-role {
+  font-size: 12px;
+  color: var(--gray);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.avis-linkedin {
+  margin-left: auto;
+  color: var(--gray);
+  flex-shrink: 0;
+  transition: color .2s;
+}
+.avis-linkedin:hover { color: var(--blue); }
+.avis-text {
+  font-size: 13.5px;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.75);
+}
 /* Barre de progression de traduction */
 .i18n-progress-bar {
   position: fixed;
-  top: 52px; /* Placée exactement sous la nav bar */
+  top: 52px;
   left: 0;
   width: 0%;
   height: 3px;
   background-color: var(--blue, #2997ff);
-  box-shadow: 0 0 10px rgba(41, 151, 255, 0.8); /* Effet néon bleu */
+  box-shadow: 0 0 10px rgba(41, 151, 255, 0.8);
   z-index: 101;
   opacity: 0;
   transition: width 0.3s ease, opacity 0.3s ease;
   pointer-events: none;
 }
-
 .i18n-progress-bar.active {
   opacity: 1;
 }
@@ -376,7 +474,7 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
   <p class="lbl" data-i18n>Formation &amp; Experience</p>
   <h2 class="ttl" data-i18n>Un parcours construit<br>avec methode.</h2>
   <div class="timeline">
- <div class="tl">
+  <div class="tl">
   <div class="tl-dot"></div>
   <p class="tl-date">Ete 2026</p>
   <h3 data-i18n>ATE &mdash; Caisse d'Epargne, Corbeil-Essonnes</h3>
@@ -396,10 +494,23 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
         <p data-i18n>Connaissance des produits bancaires de base, posture professionnelle face au client, gestion du stress et des situations delicates.</p>
 
         <h4 data-i18n>Avis de mes collegues</h4>
-        <!-- AVIS COLLEGUES : remplacez le texte ci-dessous par un vrai temoignage -->
-        <div class="quote on">
-          <blockquote>« Votre témoignage ici — demandez à un collègue ou responsable de décrire votre travail en une phrase. »</blockquote>
-          &mdash; Nom Prenom, Poste
+        <!-- AVIS COLLEGUES : dupliquez .avis-card pour chaque temoignage -->
+        <div class="avis-grid">
+
+          <div class="avis-card">
+            <div class="avis-header">
+              <img class="avis-avatar" src="images/avis-nom-prenom.jpg" alt="Photo de Nom Prenom" onerror="this.outerHTML='<div class=\'avis-avatar initials\'>NP</div>'">
+              <div class="avis-id">
+                <div class="avis-name">Nom Prenom</div>
+                <div class="avis-role">Poste, Caisse d'Epargne</div>
+              </div>
+              <a href="https://linkedin.com/in/lien-du-profil" target="_blank" class="avis-linkedin" aria-label="Profil LinkedIn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+              </a>
+            </div>
+            <p class="avis-text">« Votre témoignage ici — demandez à un collègue ou responsable de décrire votre travail en une phrase. »</p>
+          </div>
+
         </div>
       </div>
     </div>
