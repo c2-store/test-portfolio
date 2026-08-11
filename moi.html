@@ -72,6 +72,7 @@ nav ul a:hover,nav ul a.active{color:var(--white)}
 .explorer-main{display:grid;grid-template-columns:1fr 1fr;min-height:400px}
 .explorer-img{position:relative;overflow:hidden;min-height:300px}
 .explorer-img img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .4s}
+.explorer-img video{width:100%;height:100%;object-fit:cover;display:block}
 .explorer-img img.fade{opacity:0}
 .explorer-img-overlay{position:absolute;inset:0;background:linear-gradient(to right,transparent 50%,rgba(0,0,0,.5))}
 .explorer-content{padding:36px 32px;display:flex;flex-direction:column;justify-content:center}
@@ -175,6 +176,11 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
       <div class="explorer-main">
         <div class="explorer-img">
           <img id="travel-img" src="bahamas-theo.jpeg" alt="Bahamas">
+          <div class="explorer-img">
+  <img id="travel-img" src="bahamas-theo.jpeg" alt="Bahamas">
+  <video id="travel-video" autoplay loop muted playsinline style="display:none"></video>
+  <div class="explorer-img-overlay"></div>
+</div>
           <div class="explorer-img-overlay"></div>
         </div>
         <div class="explorer-content">
@@ -332,7 +338,7 @@ var travels = [
   {name:"Cuba",emoji:"🚗",region:"Caraibes",img:"",desc:"Une ile suspendue dans le temps — voitures des annees 50, musique qui s'echappe de chaque fenetre, architecture coloniale et une chaleur humaine incomparable. Cuba est une experience unique. A remplacer par ta propre description !",tags:["Caraibes","Histoire","Musique"]},
   {name:"Punta Cana",emoji:"🌅",region:"Republique Dominicaine",img:"",desc:"Cocotiers, plages de sable fin, eaux turquoise — Punta Cana c'est la quintessence des Caraibes. Un sejour sous le signe de la detente totale et des couchers de soleil spectaculaires. A remplacer par ta propre description !",tags:["Caraibes","Plage","Soleil"]},
   {name:"Italie",emoji:"🇮🇹",region:"Europe du Sud",img:"",desc:"Rome, Florence, Venise — l'Italie est un musee a ciel ouvert dote d'une gastronomie incomparable. Un pays ou chaque rue, chaque plat, chaque monument raconte des millenaires d'histoire. A remplacer par ta propre description !",tags:["Europe","Culture","Gastronomie"]},
-  {name:"Egypte",emoji:"🐫",region:"Afrique du Nord",video:"egypte.MOV",desc:"Se retrouver face aux pyramides de Gizeh, naviguer sur le Nil, plonger dans la mer Rouge — l'Egypte est une destination hors du temps qui reunit histoire antique et nature spectaculaire. A remplacer par ta propre description !",tags:["Afrique","Histoire","Plongee"]}
+  {name:"Egypte",emoji:"🐫",region:"Afrique du Nord",img:"",video:"videos/egypte.mp4",desc:"Se retrouver face aux pyramides de Gizeh, naviguer sur le Nil, plonger dans la mer Rouge — l'Egypte est une destination hors du temps qui reunit histoire antique et nature spectaculaire. A remplacer par ta propre description !",tags:["Afrique","Histoire","Plongee"]}
 ];
 
 var sports = [
@@ -361,18 +367,32 @@ function buildNav(data, id, fn) {
     nav.appendChild(btn);
   });
 }
-
 function updateExplorer(data, idx, ids) {
   var d = data[idx];
   var img = document.getElementById(ids.img);
-  img.classList.add('fade');
-  setTimeout(function(){
-    img.src = d.img; img.alt = d.name;
-    img.onload = function(){ img.classList.remove('fade'); };
-    img.onerror = function(){ img.classList.remove('fade'); };
-  }, 200);
+  var vid = ids.video ? document.getElementById(ids.video) : null;
+
+  if (d.video && vid) {
+    img.style.display = 'none';
+    vid.style.display = 'block';
+    if (vid.getAttribute('src') !== d.video) {
+      vid.setAttribute('src', d.video);
+      vid.load();
+      vid.play();
+    }
+  } else {
+    if (vid) { vid.pause(); vid.style.display = 'none'; }
+    img.style.display = 'block';
+    img.classList.add('fade');
+    setTimeout(function(){
+      img.src = d.img; img.alt = d.name;
+      img.onload = function(){ img.classList.remove('fade'); };
+      img.onerror = function(){ img.classList.remove('fade'); };
+    }, 200);
+  }
+
   document.getElementById(ids.counter).textContent = String(idx+1).padStart(2,'0') + ' / ' + String(data.length).padStart(2,'0');
-  
+
   var nameEl = document.getElementById(ids.name);
   nameEl.textContent = d.name;
   if (typeof window.applyI18nToElement === 'function') window.applyI18nToElement(nameEl);
@@ -395,7 +415,7 @@ function updateExplorer(data, idx, ids) {
   });
 }
 
-var tIds = {img:'travel-img',counter:'travel-counter',name:'travel-name',emoji:'travel-emoji',desc:'travel-desc',tags:'travel-tags',nav:'travel-nav'};
+var tIds ={img:'travel-img',video:'travel-video',counter:'travel-counter',name:'travel-name',emoji:'travel-emoji',desc:'travel-desc',tags:'travel-tags',nav:'travel-nav'};
 var sIds = {img:'sport-img',counter:'sport-counter',name:'sport-name',emoji:'sport-emoji',desc:'sport-desc',tags:'sport-tags',nav:'sport-nav'};
 
 function travelNav(dir){ travelIdx=(travelIdx+dir+travels.length)%travels.length; updateExplorer(travels,travelIdx,tIds); }
