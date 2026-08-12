@@ -146,12 +146,6 @@
 
   function cacheSet(lang, sourceHash, data) {
     try {
-      var prefix = "tva_t_" + lang + "_";
-      Object.keys(localStorage).forEach(function (k) {
-        if (k.indexOf(prefix) === 0 && k !== cacheKey(lang, sourceHash)) {
-          localStorage.removeItem(k);
-        }
-      });
       localStorage.setItem(cacheKey(lang, sourceHash), JSON.stringify(data));
     } catch (e) {}
   }
@@ -193,7 +187,7 @@
   }
 
   /* ════════════════════════════════════════════
-     APPLICATION DE LA TRADUCTION
+     APPLICATION DE LA TRADUCTION — CONTENU PRINCIPAL
      ════════════════════════════════════════════ */
 
   function applyLang(lang) {
@@ -254,6 +248,84 @@
   }
 
   /* ════════════════════════════════════════════
+     TRADUCTION PARESSEUSE (LAZY) — CONTENU DES MODALES
+     Ne se declenche qu'a l'ouverture d'une fenetre .modal-overlay,
+     sur les elements marques data-i18n-lazy a l'interieur.
+     ════════════════════════════════════════════ */
+
+  var lazyInFlight = {}; // evite de lancer 2x la meme traduction en parallele
+
+  function translateContainerLazy(container, lang) {
+    if (!container) return;
+    var elements = Array.from(container.querySelectorAll("[data-i18n-lazy]"));
+    if (!elements.length) return;
+
+    if (lang === "fr") {
+      elements.forEach(function (el) {
+        var orig = getSource(el);
+        if (orig) applyText(el, orig);
+      });
+      return;
+    }
+
+    var texts = {};
+    elements.forEach(function (el, i) { texts[i] = getSource(el); });
+
+    var sourceHash = hash((container.id || "modal") + "|" + Object.values(texts).join("|"));
+    var flightKey = lang + "_" + sourceHash;
+
+    var cached = cacheGet(lang, sourceHash);
+    if (cached) {
+      elements.forEach(function (el, i) { if (cached[i]) applyText(el, cached[i]); });
+      return;
+    }
+
+    if (lazyInFlight[flightKey]) return; // deja en cours
+    lazyInFlight[flightKey] = true;
+
+    startProgress();
+    elements.forEach(function (el) { el.style.opacity = "0.4"; });
+    midProgress();
+
+    callTranslate(lang, texts).then(function (translations) {
+      elements.forEach(function (el) { el.style.opacity = ""; });
+      delete lazyInFlight[flightKey];
+      if (!translations) {
+        console.error("[i18n] Échec de la traduction (modale).");
+        endProgress();
+        return;
+      }
+      cacheSet(lang, sourceHash, translations);
+      elements.forEach(function (el, i) { if (translations[i]) applyText(el, translations[i]); });
+      endProgress();
+    });
+  }
+
+  function initLazyModals() {
+    var modals = document.querySelectorAll(".modal-overlay");
+    if (!modals.length) return;
+
+    modals.forEach(function (modal) {
+      var mo = new MutationObserver(function (mutations) {
+        mutations.forEach(function (m) {
+          if (m.attributeName === "class" && modal.classList.contains("show")) {
+            translateContainerLazy(modal, getCurrentLang());
+          }
+        });
+      });
+      mo.observe(modal, { attributes: true });
+    });
+  }
+
+  /* Quand on change de langue, si une modale est deja ouverte a l'ecran,
+     on la traduit aussi immediatement (sans attendre une fermeture/reouverture) */
+  function retranslateOpenModals(lang) {
+    document.querySelectorAll(".modal-overlay.show").forEach(function (modal) {
+      translateContainerLazy(modal, lang);
+    });
+  }
+
+  /* ════════════════════════════════════════════
      BOUTON DANS LA NAV BAR + STYLES
      ════════════════════════════════════════════ */
 
@@ -270,10 +342,9 @@
     ".tva-lang-item{background:none;border:none;color:#f5f5f7;font-size:13px;padding:8px 12px;border-radius:8px;text-align:left;cursor:pointer;transition:background 0.15s;white-space:nowrap;display:flex;align-items:center;gap:8px;}" +
     ".tva-lang-item:hover{background:rgba(255,255,255,0.1);}" +
     ".tva-lang-item.cur{color:var(--blue,#2997ff);font-weight:600;background:rgba(41,151,255,0.1);}" +
-    /* ── CORRECTIF MOBILE : le bouton de langue etait masque par le menu hamburger ── */
+    /* ── CORRECTIF MOBILE : menu langue tronque par la hauteur du menu hamburger ── */
     "@media(max-width:768px){" +
       "nav ul.nav-open{max-height:70vh !important;overflow-y:auto !important;}" +
-
       ".tva-nav-lang{width:100%;margin:10px 0 4px;padding:0 24px;box-sizing:border-box;justify-content:center;}" +
       "#tvaNavBtn{width:100%;justify-content:center;padding:12px;border-radius:10px;}" +
       "#tvaNavMenu{position:static;width:100%;margin-top:8px;box-shadow:none;box-sizing:border-box;}" +
@@ -328,6 +399,7 @@
         btn.innerHTML = (FLAGS[selectedLang] || "🌐") + ' <span>' + (SHORT_NAMES[selectedLang] || selectedLang.toUpperCase()) + '</span> <span class="tva-arrow">▾</span>';
         saveLang(selectedLang);
         applyLang(selectedLang);
+        retranslateOpenModals(selectedLang);
       });
     });
   }
@@ -344,6 +416,7 @@
   function init() {
     initMobileMenu();
     buildNavSwitcher();
+    initLazyModals();
 
     var lang = getCurrentLang();
     applyLang(lang).catch(function () {});
