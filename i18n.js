@@ -272,7 +272,8 @@
     ".tva-lang-item.cur{color:var(--blue,#2997ff);font-weight:600;background:rgba(41,151,255,0.1);}" +
     /* ── CORRECTIF MOBILE : le bouton de langue etait masque par le menu hamburger ── */
     "@media(max-width:768px){" +
-      "nav ul.nav-open{max-height:520px !important;}" +
+      "nav ul.nav-open{max-height:70vh !important;overflow-y:auto !important;}" +
+
       ".tva-nav-lang{width:100%;margin:10px 0 4px;padding:0 24px;box-sizing:border-box;justify-content:center;}" +
       "#tvaNavBtn{width:100%;justify-content:center;padding:12px;border-radius:10px;}" +
       "#tvaNavMenu{position:static;width:100%;margin-top:8px;box-shadow:none;box-sizing:border-box;}" +
