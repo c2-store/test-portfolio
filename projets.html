@@ -5,6 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Projets — Theo Vigouroux</title>
 <style>
+/* Barre de progression de traduction */
+.i18n-progress-bar {
+  position: fixed;
+  top: 52px;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background-color: var(--blue, #2997ff);
+  box-shadow: 0 0 10px rgba(41, 151, 255, 0.8);
+  z-index: 101;
+  opacity: 0;
+  transition: width 0.3s ease, opacity 0.3s ease;
+  pointer-events: none;
+}
+.i18n-progress-bar.active {
+  opacity: 1;
+}
   .nav-toggle{display:none;background:none;border:none;color:var(--white);font-size:26px;cursor:pointer;line-height:1;padding:2px 4px}
 @media(max-width:768px){
   .nav-toggle{display:block}
@@ -217,135 +234,138 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
   <a class="logo" href="index.html">Theo Vigouroux</a>
   <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu">☰</button>
   <ul>
-    <li><a href="index.html#about">Qui suis-je ?</a></li>
-    <li><a href="projets.html" class="active">Projets</a></li>
-    <li><a href="moi.html">Un peu plus sur moi</a></li>
-    <li><a href="assistant.html">Assistant IA</a></li>
-    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="index.html#about" data-i18n>Qui suis-je ?</a></li>
+    <li><a href="projets.html" class="active" data-i18n>Projets</a></li>
+    <li><a href="moi.html" data-i18n>Un peu plus sur moi</a></li>
+    <li><a href="assistant.html" data-i18n>Assistant IA</a></li>
+    <li><a href="index.html#contact" data-i18n>Contact</a></li>
   </ul>
 </nav>
+
+<!-- Barre de chargement bleue sous la nav bar -->
+<div id="i18nProgressBar" class="i18n-progress-bar"></div>
 
 <!-- HERO -->
 <div class="hero">
   <div class="hero-glow"></div>
-  <p class="hero-tag">Theo Vigouroux &middot; Realisations</p>
-  <h1>Mes Projets.</h1>
-  <p class="hero-sub">De l'idee au prototype — chaque projet est une etape vers l'ingenieur de demain.</p>
+  <p class="hero-tag" data-i18n>Theo Vigouroux &middot; Realisations</p>
+  <h1 data-i18n>Mes Projets.</h1>
+  <p class="hero-sub" data-i18n>De l'idee au prototype — chaque projet est une etape vers l'ingenieur de demain.</p>
 </div>
 
 <section class="sec">
 
   <!-- FILTER -->
   <div class="filter-bar">
-    <button class="filter-btn active" data-filter="all">Tous les projets</button>
-    <button class="filter-btn" data-filter="geii">BUT GEII</button>
-    <button class="filter-btn" data-filter="sti2d">STI2D</button>
-    <button class="filter-btn" data-filter="objectif">Objectif pro</button>
+    <button class="filter-btn active" data-filter="all" data-i18n>Tous les projets</button>
+    <button class="filter-btn" data-filter="geii" data-i18n>BUT GEII</button>
+    <button class="filter-btn" data-filter="sti2d" data-i18n>STI2D</button>
+    <button class="filter-btn" data-filter="objectif" data-i18n>Objectif pro</button>
   </div>
 
   <!-- GEII -->
-  <div class="sep"><div class="sep-line"></div><span class="sep-label">BUT GEII — 2025 / Present</span><div class="sep-line"></div></div>
+  <div class="sep"><div class="sep-line"></div><span class="sep-label" data-i18n>BUT GEII — 2025 / Present</span><div class="sep-line"></div></div>
   <div class="projects-grid">
 
     <div class="pcard" data-cat="geii">
       <div class="pcard-icon">🤖</div>
-      <span class="bdg">Robotique</span>
-      <h3>Robot suiveur de ligne — priorite a droite</h3>
-      <p>Robot mobile autonome (Arduino Uno) suivant une ligne noire sur fond blanc grace a deux capteurs IR, avec application d'une regle de priorite a droite aux intersections, vitesse reglable par potentiometre et arret immediat sur detection d'obstacle au telemetre.</p>
-      <div class="tags"><span class="tag">Arduino</span><span class="tag">C</span><span class="tag">Capteurs IR</span><span class="tag">Telemetre</span><span class="tag">PWM</span></div>
+      <span class="bdg" data-i18n>Robotique</span>
+      <h3 data-i18n>Robot suiveur de ligne — priorite a droite</h3>
+      <p data-i18n>Robot mobile autonome (Arduino Uno) suivant une ligne noire sur fond blanc grace a deux capteurs IR, avec application d'une regle de priorite a droite aux intersections, vitesse reglable par potentiometre et arret immediat sur detection d'obstacle au telemetre.</p>
+      <div class="tags"><span class="tag">Arduino</span><span class="tag">C</span><span class="tag" data-i18n>Capteurs IR</span><span class="tag" data-i18n>Telemetre</span><span class="tag">PWM</span></div>
       <div class="pcard-footer">
-        <div class="status done"><div class="status-dot"></div>Termine</div>
-        <button class="btn btn-g" style="padding:8px 18px;font-size:13px" onclick="openLineModal()">Voir le detail &rarr;</button>
+        <div class="status done"><div class="status-dot"></div><span data-i18n>Termine</span></div>
+        <button class="btn btn-g" style="padding:8px 18px;font-size:13px" onclick="openLineModal()" data-i18n>Voir le detail &rarr;</button>
       </div>
     </div>
 
     <div class="pcard" data-cat="geii">
       <div class="pcard-icon">🎮</div>
-      <span class="bdg">Software</span>
-      <h3>Jeu Invaders en C</h3>
-      <p>Developpement from scratch d'un Space Invaders en langage C pur. Gestion de la logique de jeu : collisions, vagues ennemies, score, vies. Affichage en rendu console avec gestion des entrees clavier en temps reel.</p>
-      <div class="tags"><span class="tag">C</span><span class="tag">Algorithmique</span><span class="tag">Gestion memoire</span><span class="tag">Logique jeu</span></div>
+      <span class="bdg" data-i18n>Software</span>
+      <h3 data-i18n>Jeu Invaders en C</h3>
+      <p data-i18n>Developpement from scratch d'un Space Invaders en langage C pur. Gestion de la logique de jeu : collisions, vagues ennemies, score, vies. Affichage en rendu console avec gestion des entrees clavier en temps reel.</p>
+      <div class="tags"><span class="tag">C</span><span class="tag" data-i18n>Algorithmique</span><span class="tag" data-i18n>Gestion memoire</span><span class="tag" data-i18n>Logique jeu</span></div>
       <div class="pcard-footer">
-        <div class="status done"><div class="status-dot"></div>Termine</div>
+        <div class="status done"><div class="status-dot"></div><span data-i18n>Termine</span></div>
       </div>
     </div>
 
     <div class="pcard" data-cat="geii">
       <div class="pcard-icon">⏱️</div>
-      <span class="bdg">Instrumentation</span>
-      <h3>Metronome electronique de precision</h3>
-      <p>Conception d'un metronome electronique base sur un double NE555 en montage astable. Generateur de tempo (BPM), generateur de son (250 Hz - 10 kHz), etage de commutation a transistor et haut-parleur. Calculs theoriques, simulation et validation experimentale sur plaque a trous.</p>
-      <div class="tags"><span class="tag">NE555</span><span class="tag">Astable</span><span class="tag">Analogique</span><span class="tag">Oscilloscope</span><span class="tag">Instrumentation</span></div>
+      <span class="bdg" data-i18n>Instrumentation</span>
+      <h3 data-i18n>Metronome electronique de precision</h3>
+      <p data-i18n>Conception d'un metronome electronique base sur un double NE555 en montage astable. Generateur de tempo (BPM), generateur de son (250 Hz - 10 kHz), etage de commutation a transistor et haut-parleur. Calculs theoriques, simulation et validation experimentale sur plaque a trous.</p>
+      <div class="tags"><span class="tag">NE555</span><span class="tag" data-i18n>Astable</span><span class="tag" data-i18n>Analogique</span><span class="tag" data-i18n>Oscilloscope</span><span class="tag" data-i18n>Instrumentation</span></div>
       <div class="pcard-footer">
-        <div class="status done"><div class="status-dot"></div>Termine</div>
-        <button class="btn btn-g" style="padding:8px 18px;font-size:13px" onclick="openMetroModal()">Voir le detail &rarr;</button>
+        <div class="status done"><div class="status-dot"></div><span data-i18n>Termine</span></div>
+        <button class="btn btn-g" style="padding:8px 18px;font-size:13px" onclick="openMetroModal()" data-i18n>Voir le detail &rarr;</button>
       </div>
     </div>
 
     <div class="pcard" data-cat="geii">
       <div class="pcard-icon">🎙️</div>
-      <span class="bdg">Robotique &middot; Capteurs</span>
-      <h3>Robot a reaction sonore asymetrique</h3>
-      <p>Robot mobile a deux moteurs (MG/MD) capable de reagir a un bruit ou un claquement. Une chaine capteur de bruit + monostable NE555 (45 µs) genere une impulsion qui coupe brievement le moteur gauche via un hacheur, tandis qu'un inverseur maintient le moteur droit actif : le robot devie sa trajectoire au bruit.</p>
-      <div class="tags"><span class="tag">NE555</span><span class="tag">Monostable</span><span class="tag">Capteur de son</span><span class="tag">Hacheurs</span><span class="tag">2N2219</span></div>
+      <span class="bdg" data-i18n>Robotique &middot; Capteurs</span>
+      <h3 data-i18n>Robot a reaction sonore asymetrique</h3>
+      <p data-i18n>Robot mobile a deux moteurs (MG/MD) capable de reagir a un bruit ou un claquement. Une chaine capteur de bruit + monostable NE555 (45 µs) genere une impulsion qui coupe brievement le moteur gauche via un hacheur, tandis qu'un inverseur maintient le moteur droit actif : le robot devie sa trajectoire au bruit.</p>
+      <div class="tags"><span class="tag">NE555</span><span class="tag" data-i18n>Monostable</span><span class="tag" data-i18n>Capteur de son</span><span class="tag" data-i18n>Hacheurs</span><span class="tag">2N2219</span></div>
       <div class="pcard-footer">
-        <div class="status done"><div class="status-dot"></div>Termine</div>
-        <button class="btn btn-g" style="padding:8px 18px;font-size:13px" onclick="openSoundModal()">Voir le detail &rarr;</button>
+        <div class="status done"><div class="status-dot"></div><span data-i18n>Termine</span></div>
+        <button class="btn btn-g" style="padding:8px 18px;font-size:13px" onclick="openSoundModal()" data-i18n>Voir le detail &rarr;</button>
       </div>
     </div>
 
   </div>
 
   <!-- STI2D -->
-  <div class="sep"><div class="sep-line"></div><span class="sep-label">Bac STI2D — 2023 / 2025</span><div class="sep-line"></div></div>
+  <div class="sep"><div class="sep-line"></div><span class="sep-label" data-i18n>Bac STI2D — 2023 / 2025</span><div class="sep-line"></div></div>
   <div class="projects-grid">
 
     <div class="pcard" data-cat="sti2d">
       <div class="pcard-icon">🛹</div>
-      <span class="bdg">Mobilite electrique</span>
-      <h3>Skateboard electrique</h3>
-      <p>Conception et realisation d'un skateboard electrique complet pilote par Raspberry Pi Pico en MicroPython. Controle de la motorisation brushless, gestion de la batterie LiPo, interface de commande sans fil et regulation de vitesse.</p>
-      <div class="tags"><span class="tag">Raspberry Pi Pico</span><span class="tag">MicroPython</span><span class="tag">Motorisation</span><span class="tag">LiPo</span></div>
+      <span class="bdg" data-i18n>Mobilite electrique</span>
+      <h3 data-i18n>Skateboard electrique</h3>
+      <p data-i18n>Conception et realisation d'un skateboard electrique complet pilote par Raspberry Pi Pico en MicroPython. Controle de la motorisation brushless, gestion de la batterie LiPo, interface de commande sans fil et regulation de vitesse.</p>
+      <div class="tags"><span class="tag">Raspberry Pi Pico</span><span class="tag">MicroPython</span><span class="tag" data-i18n>Motorisation</span><span class="tag">LiPo</span></div>
       <div class="pcard-footer">
-        <div class="status done"><div class="status-dot"></div>Termine</div>
+        <div class="status done"><div class="status-dot"></div><span data-i18n>Termine</span></div>
       </div>
     </div>
 
     <div class="pcard" data-cat="sti2d">
       <div class="pcard-icon">🔊</div>
-      <span class="bdg">Acoustique</span>
-      <h3>Amplificateur sonore eco-concu</h3>
-      <p>Conception d'un amplificateur audio fonctionnel sous contrainte forte d'eco-conception : chassis 100% carton recycle, composants low-power. Etude du compromis performance audio vs impact environnemental.</p>
-      <div class="tags"><span class="tag">Eco-conception</span><span class="tag">Electronique audio</span><span class="tag">Amplification</span></div>
+      <span class="bdg" data-i18n>Acoustique</span>
+      <h3 data-i18n>Amplificateur sonore eco-concu</h3>
+      <p data-i18n>Conception d'un amplificateur audio fonctionnel sous contrainte forte d'eco-conception : chassis 100% carton recycle, composants low-power. Etude du compromis performance audio vs impact environnemental.</p>
+      <div class="tags"><span class="tag" data-i18n>Eco-conception</span><span class="tag" data-i18n>Electronique audio</span><span class="tag" data-i18n>Amplification</span></div>
       <div class="pcard-footer">
-        <div class="status done"><div class="status-dot"></div>Termine</div>
+        <div class="status done"><div class="status-dot"></div><span data-i18n>Termine</span></div>
       </div>
     </div>
 
     <div class="pcard" data-cat="sti2d">
       <div class="pcard-icon">🖨️</div>
-      <span class="bdg">CAO / Conception mecanique</span>
-      <h3>Modelisation 3D SolidWorks</h3>
-      <p>Conception et modelisation 3D de coques de protection et supports cameras via SolidWorks. Travail sur les contraintes mecaniques, tolerances dimensionnelles et validation fonctionnelle avant fabrication.</p>
-      <div class="tags"><span class="tag">SolidWorks</span><span class="tag">CAO</span><span class="tag">Prototypage</span><span class="tag">Conception mecanique</span></div>
+      <span class="bdg" data-i18n>CAO / Conception mecanique</span>
+      <h3 data-i18n>Modelisation 3D SolidWorks</h3>
+      <p data-i18n>Conception et modelisation 3D de coques de protection et supports cameras via SolidWorks. Travail sur les contraintes mecaniques, tolerances dimensionnelles et validation fonctionnelle avant fabrication.</p>
+      <div class="tags"><span class="tag">SolidWorks</span><span class="tag" data-i18n>CAO</span><span class="tag" data-i18n>Prototypage</span><span class="tag" data-i18n>Conception mecanique</span></div>
       <div class="pcard-footer">
-        <div class="status done"><div class="status-dot"></div>Termine</div>
+        <div class="status done"><div class="status-dot"></div><span data-i18n>Termine</span></div>
       </div>
     </div>
 
   </div>
 
   <!-- OBJECTIF PRO -->
-  <div class="sep"><div class="sep-line"></div><span class="sep-label">Projet professionnel</span><div class="sep-line"></div></div>
+  <div class="sep"><div class="sep-line"></div><span class="sep-label" data-i18n>Projet professionnel</span><div class="sep-line"></div></div>
 
   <div class="goal-card" data-cat="objectif">
     <div>
-      <span class="lbl">Ambition</span>
-      <h3>Cadre Ingenieur chez Air France</h3>
-      <p>Mon objectif est d'integrer une grande ecole d'ingenieurs ou un Master specialise afin d'acceder a un poste de cadre ingenieur au sein du groupe Air France. Je souhaite mettre mes competences en gestion de projet et en systemes automatises au service de l'excellence operationnelle et de la maintenance aeronautique de demain.</p>
+      <span class="lbl" data-i18n>Ambition</span>
+      <h3 data-i18n>Cadre Ingenieur chez Air France</h3>
+      <p data-i18n>Mon objectif est d'integrer une grande ecole d'ingenieurs ou un Master specialise afin d'acceder a un poste de cadre ingenieur au sein du groupe Air France. Je souhaite mettre mes competences en gestion de projet et en systemes automatises au service de l'excellence operationnelle et de la maintenance aeronautique de demain.</p>
       <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap">
-        <div class="status future"><div class="status-dot"></div>Objectif long terme</div>
-        <div class="tags" style="margin:0"><span class="tag">Grande ecole / Master</span><span class="tag">Maintenance aeronautique</span><span class="tag">Gestion de projet</span><span class="tag">Systemes automatises</span></div>
+        <div class="status future"><div class="status-dot"></div><span data-i18n>Objectif long terme</span></div>
+        <div class="tags" style="margin:0"><span class="tag" data-i18n>Grande ecole / Master</span><span class="tag" data-i18n>Maintenance aeronautique</span><span class="tag" data-i18n>Gestion de projet</span><span class="tag" data-i18n>Systemes automatises</span></div>
       </div>
     </div>
     <div class="goal-icon">✈️</div>
@@ -358,10 +378,10 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
   <div class="modal-box">
     <div class="modal-close" onclick="closeMetroModal()">&times;</div>
     <span class="mtag">SAE 1 &middot; BUT GEII &middot; Binome 4</span>
-    <h2>Metronome electronique de precision</h2>
-    <p>Conception complete d'un metronome electronique a base de deux NE555 montes en astable : un premier oscillateur cadence le tempo (les battements), un second genere le son, et un etage a transistor commute le haut-parleur pendant chaque battement. Alimentation 15 V.</p>
+    <h2 data-i18n>Metronome electronique de precision</h2>
+    <p data-i18n>Conception complete d'un metronome electronique a base de deux NE555 montes en astable : un premier oscillateur cadence le tempo (les battements), un second genere le son, et un etage a transistor commute le haut-parleur pendant chaque battement. Alimentation 15 V.</p>
 
-    <h4>Schema fonctionnel</h4>
+    <h4 data-i18n>Schema fonctionnel</h4>
     <svg viewBox="0 0 760 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:12px;background:#07070a;border:1px solid rgba(255,255,255,0.08);display:block;margin:16px 0">
       <defs>
         <marker id="mA" markerWidth="8" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0,0 8,3.5 0,7" fill="#2997ff"/></marker>
@@ -407,34 +427,34 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
       <text x="380" y="150" text-anchor="middle" fill="rgba(255,255,255,0.18)" font-size="10" font-family="-apple-system,sans-serif">Alimentation 15 V</text>
     </svg>
 
-    <h4>Astable 1 — Generateur de tempo</h4>
-    <p>Composants retenus : R1 = 16 k&Omega;, R2 = 1,3 k&Omega;, P1 = 100 k&Omega;, C1 = 47 &micro;F.</p>
+    <h4 data-i18n>Astable 1 — Generateur de tempo</h4>
+    <p data-i18n>Composants retenus : R1 = 16 k&Omega;, R2 = 1,3 k&Omega;, P1 = 100 k&Omega;, C1 = 47 &micro;F.</p>
     <div class="spec-grid">
-      <div class="spec-box"><div class="sv">42,3 <span>ms</span></div><div class="sl">T1 low (son)</div></div>
-      <div class="spec-box"><div class="sv">0,606 - 3,86 <span>s</span></div><div class="sl">Periode T1</div></div>
-      <div class="spec-box warn"><div class="sv">15,5 - 99,1 <span>BPM</span></div><div class="sl">Plage obtenue</div></div>
-      <div class="spec-box"><div class="sv">40 - 208 <span>BPM</span></div><div class="sl">Cahier des charges</div></div>
+      <div class="spec-box"><div class="sv">42,3 <span>ms</span></div><div class="sl" data-i18n>T1 low (son)</div></div>
+      <div class="spec-box"><div class="sv">0,606 - 3,86 <span>s</span></div><div class="sl" data-i18n>Periode T1</div></div>
+      <div class="spec-box warn"><div class="sv">15,5 - 99,1 <span>BPM</span></div><div class="sl" data-i18n>Plage obtenue</div></div>
+      <div class="spec-box"><div class="sv">40 - 208 <span>BPM</span></div><div class="sl" data-i18n>Cahier des charges</div></div>
     </div>
-    <p>La plage obtenue (15,5 a 99,1 BPM) ne couvre pas entierement la plage demandee (40 a 208 BPM) : le tempo maximal reste trop lent. Pour s'en rapprocher, il faudrait reduire C1 (par exemple 10 a 22 &micro;F) et/ou diminuer R1 et P1.</p>
+    <p data-i18n>La plage obtenue (15,5 a 99,1 BPM) ne couvre pas entierement la plage demandee (40 a 208 BPM) : le tempo maximal reste trop lent. Pour s'en rapprocher, il faudrait reduire C1 (par exemple 10 a 22 &micro;F) et/ou diminuer R1 et P1.</p>
 
-    <h4>Astable 2 — Generateur de son</h4>
-    <p>Composants retenus : R3 = 430 &Omega;, R4 = 820 &Omega;, P2 = 100 k&Omega;, C2 = 68 nF.</p>
+    <h4 data-i18n>Astable 2 — Generateur de son</h4>
+    <p data-i18n>Composants retenus : R3 = 430 &Omega;, R4 = 820 &Omega;, P2 = 100 k&Omega;, C2 = 68 nF.</p>
     <div class="spec-grid">
-      <div class="spec-box"><div class="sv">38,6 <span>&micro;s</span></div><div class="sl">T2 low</div></div>
-      <div class="spec-box ok"><div class="sv">208 Hz - 10,25 <span>kHz</span></div><div class="sl">Plage obtenue</div></div>
-      <div class="spec-box"><div class="sv">250 Hz - 10 <span>kHz</span></div><div class="sl">Cahier des charges</div></div>
-      <div class="spec-box ok"><div class="sv">~ Conforme</div><div class="sl">Validation</div></div>
+      <div class="spec-box"><div class="sv">38,6 <span>&micro;s</span></div><div class="sl" data-i18n>T2 low</div></div>
+      <div class="spec-box ok"><div class="sv">208 Hz - 10,25 <span>kHz</span></div><div class="sl" data-i18n>Plage obtenue</div></div>
+      <div class="spec-box"><div class="sv">250 Hz - 10 <span>kHz</span></div><div class="sl" data-i18n>Cahier des charges</div></div>
+      <div class="spec-box ok"><div class="sv" data-i18n>~ Conforme</div><div class="sl" data-i18n>Validation</div></div>
     </div>
-    <p>La borne haute (10,25 kHz) correspond bien a l'objectif de 10 kHz. La borne basse (208 Hz) est tres proche des 250 Hz attendus &mdash; un ajustement de C2 (vers 47 nF) permettrait de l'atteindre exactement.</p>
+    <p data-i18n>La borne haute (10,25 kHz) correspond bien a l'objectif de 10 kHz. La borne basse (208 Hz) est tres proche des 250 Hz attendus &mdash; un ajustement de C2 (vers 47 nF) permettrait de l'atteindre exactement.</p>
 
-    <h4>Etage de puissance et commutation</h4>
-    <p>Le transistor T2 (2N2219) pilote le haut-parleur en commutation depuis le +15 V via Rc2 = 120 &Omega; (courant de crete limite a environ 125 mA). Sa base est attaquee via Rb2 = 750 &Omega; (~19 mA de courant de base), largement suffisant pour saturer le transistor. Une diode de roue libre protege le montage contre les pics de tension lies a l'inductance du haut-parleur. Le transistor T1 (2N2222) et la LED (Rd = 5,6 k&Omega;) assurent l'affichage visuel du battement.</p>
+    <h4 data-i18n>Etage de puissance et commutation</h4>
+    <p data-i18n>Le transistor T2 (2N2219) pilote le haut-parleur en commutation depuis le +15 V via Rc2 = 120 &Omega; (courant de crete limite a environ 125 mA). Sa base est attaquee via Rb2 = 750 &Omega; (~19 mA de courant de base), largement suffisant pour saturer le transistor. Une diode de roue libre protege le montage contre les pics de tension lies a l'inductance du haut-parleur. Le transistor T1 (2N2222) et la LED (Rd = 5,6 k&Omega;) assurent l'affichage visuel du battement.</p>
 
-    <h4>Validation</h4>
-    <p>Le montage cable et teste fonctionne : la LED clignote au rythme reglable et le haut-parleur emet un "tic" net a chaque battement. Les ecarts mesures par rapport a la theorie restent dans les tolerances habituelles des composants (&plusmn;5% sur les resistances, &plusmn;20% sur les condensateurs). Les ajustements identifies (C1 plus petit pour le tempo, C2 legerement reduit pour le son) permettraient de coller parfaitement au cahier des charges.</p>
+    <h4 data-i18n>Validation</h4>
+    <p data-i18n>Le montage cable et teste fonctionne : la LED clignote au rythme reglable et le haut-parleur emet un "tic" net a chaque battement. Les ecarts mesures par rapport a la theorie restent dans les tolerances habituelles des composants (&plusmn;5% sur les resistances, &plusmn;20% sur les condensateurs). Les ajustements identifies (C1 plus petit pour le tempo, C2 legerement reduit pour le son) permettraient de coller parfaitement au cahier des charges.</p>
 
-    <h4>Pour comprendre — simulation interactive</h4>
-    <p>Regle le tempo et la hauteur du son pour voir (et entendre) comment les deux astables du NE555 pilotent la LED et le haut-parleur : Astable 1 cadence le battement, Astable 2 cadence le son emis pendant ce battement.</p>
+    <h4 data-i18n>Pour comprendre — simulation interactive</h4>
+    <p data-i18n>Regle le tempo et la hauteur du son pour voir (et entendre) comment les deux astables du NE555 pilotent la LED et le haut-parleur : Astable 1 cadence le battement, Astable 2 cadence le son emis pendant ce battement.</p>
 
     <div class="metro-demo">
       <div class="metro-stage">
@@ -443,7 +463,7 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
             <div class="metro-tri"></div>
             <div class="metro-arm" id="metroArm"></div>
           </div>
-          <div class="metro-lbl">Battement</div>
+          <div class="metro-lbl" data-i18n>Battement</div>
         </div>
         <div class="metro-col">
           <div class="metro-led" id="metroLed"></div>
@@ -451,7 +471,7 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
         </div>
         <div class="metro-col">
           <div class="metro-spk" id="metroSpk">🔊</div>
-          <div class="metro-lbl">Haut-parleur</div>
+          <div class="metro-lbl" data-i18n>Haut-parleur</div>
         </div>
         <div class="metro-col">
           <div class="metro-bpm" id="metroBpmVal">88</div>
@@ -461,22 +481,22 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
       <canvas class="metro-osc" id="metroOsc" width="800" height="90"></canvas>
       <div class="metro-controls">
         <div class="metro-ctrl-row">
-          <label>Tempo (Astable 1) <b id="bpmLabel">88 BPM</b></label>
+          <label><span data-i18n>Tempo (Astable 1)</span> <b id="bpmLabel">88 BPM</b></label>
           <input type="range" id="bpmSlider" min="40" max="208" value="88" step="1">
         </div>
         <div class="metro-ctrl-row">
-          <label>Hauteur du son (Astable 2) <b id="freqLabel">880 Hz</b></label>
+          <label><span data-i18n>Hauteur du son (Astable 2)</span> <b id="freqLabel">880 Hz</b></label>
           <input type="range" id="freqSlider" min="250" max="2500" value="880" step="10">
         </div>
         <div class="metro-ctrl-row">
-          <label>Duree du son a chaque battement <b id="durLabel">25 ms</b></label>
+          <label><span data-i18n>Duree du son a chaque battement</span> <b id="durLabel">25 ms</b></label>
           <input type="range" id="durSlider" min="10" max="60" value="25" step="1">
         </div>
         <div class="metro-ctrl-row" style="justify-content:center">
-          <button class="btn btn-p" id="metroToggle" style="margin-top:18px">▶ Activer le son</button>
+          <button class="btn btn-p" id="metroToggle" style="margin-top:18px" data-i18n>▶ Activer le son</button>
         </div>
       </div>
-      <p class="metro-note">L'oscillogramme bleu represente V1 (sortie de l'Astable 1, tempo) et le trait rouge represente V3 (sortie de l'Astable 2, son), visible uniquement pendant le battement &mdash; exactement comme sur le montage reel.</p>
+      <p class="metro-note" data-i18n>L'oscillogramme bleu represente V1 (sortie de l'Astable 1, tempo) et le trait rouge represente V3 (sortie de l'Astable 2, son), visible uniquement pendant le battement &mdash; exactement comme sur le montage reel.</p>
     </div>
   </div>
 </div>
@@ -486,10 +506,10 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
   <div class="modal-box">
     <div class="modal-close" onclick="closeSoundModal()">&times;</div>
     <span class="mtag">SAE 1 &middot; BUT GEII &middot; Detection sonore</span>
-    <h2>Robot a reaction sonore asymetrique</h2>
-    <p>Objectif : realiser un systeme analogique qui detecte un bruit ou un claquement et reagit de maniere asymetrique sur les deux moteurs d'un robot mobile : le moteur gauche (MG) s'arrete brievement tandis que le moteur droit (MD) continue de tourner, ce qui fait devier la trajectoire du robot vers la gauche au moment du bruit.</p>
+    <h2 data-i18n>Robot a reaction sonore asymetrique</h2>
+    <p data-i18n>Objectif : realiser un systeme analogique qui detecte un bruit ou un claquement et reagit de maniere asymetrique sur les deux moteurs d'un robot mobile : le moteur gauche (MG) s'arrete brievement tandis que le moteur droit (MD) continue de tourner, ce qui fait devier la trajectoire du robot vers la gauche au moment du bruit.</p>
 
-    <h4>Chaine fonctionnelle</h4>
+    <h4 data-i18n>Chaine fonctionnelle</h4>
     <svg viewBox="0 0 800 270" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:12px;background:#07070a;border:1px solid rgba(255,255,255,0.08);display:block;margin:16px 0">
       <defs>
         <marker id="sA2b" markerWidth="8" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0,0 8,3.5 0,7" fill="#2997ff"/></marker>
@@ -547,10 +567,6 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
       <text x="142" y="161" text-anchor="middle" fill="#ff3b30" font-size="11" font-family="-apple-system,sans-serif" font-weight="700">Schema fonctionnel — Roue gauche (MG)</text>
 
       <!-- ═══ LIGNE ROUE GAUCHE ═══ -->
-      <!-- Bifurcation vers le bas depuis le noeud (306,75) -->
-      
-      
-
       <!-- Hacheur gauche -->
       <rect x="342" y="184" width="128" height="50" rx="9" fill="rgba(255,59,48,0.07)" stroke="rgba(255,59,48,0.30)" stroke-width="1.5"/>
       <text x="406" y="206" text-anchor="middle" fill="#f5f5f7" font-size="12" font-family="-apple-system,sans-serif" font-weight="700">Hacheur gauche</text>
@@ -568,33 +584,33 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
       <text x="400" y="260" text-anchor="middle" fill="rgba(255,255,255,0.18)" font-size="10" font-family="-apple-system,sans-serif">Le noeud apres le monostable alimente les deux branches — asymetrie creee par l'inverseur</text>
     </svg>
 
-    <h4>Bloc monostable — calcul de la duree d'impulsion</h4>
-    <p>Formule du NE555 en monostable : T = 0,693 &times; R &times; C. Avec C = 6,8 nF et une duree cible T = 45 &micro;s :</p>
+    <h4 data-i18n>Bloc monostable — calcul de la duree d'impulsion</h4>
+    <p data-i18n>Formule du NE555 en monostable : T = 0,693 &times; R &times; C. Avec C = 6,8 nF et une duree cible T = 45 &micro;s :</p>
     <div class="spec-grid">
-      <div class="spec-box"><div class="sv">6,8 <span>nF</span></div><div class="sl">Condensateur C</div></div>
-      <div class="spec-box"><div class="sv">≈ 9,6 <span>k&Omega;</span></div><div class="sl">R calculee</div></div>
-      <div class="spec-box ok"><div class="sv">10 <span>k&Omega;</span></div><div class="sl">R normalisee</div></div>
-      <div class="spec-box"><div class="sv">45 <span>&micro;s</span></div><div class="sl">Duree visee T</div></div>
+      <div class="spec-box"><div class="sv">6,8 <span>nF</span></div><div class="sl" data-i18n>Condensateur C</div></div>
+      <div class="spec-box"><div class="sv">≈ 9,6 <span>k&Omega;</span></div><div class="sl" data-i18n>R calculee</div></div>
+      <div class="spec-box ok"><div class="sv">10 <span>k&Omega;</span></div><div class="sl" data-i18n>R normalisee</div></div>
+      <div class="spec-box"><div class="sv">45 <span>&micro;s</span></div><div class="sl" data-i18n>Duree visee T</div></div>
     </div>
-    <p>Avec R = 10 k&Omega; normalise, la duree obtenue reste tres proche des 45 &micro;s vises (tolerances habituelles sur R et C). Cette impulsion T fixe exactement le temps pendant lequel MG est coupe.</p>
+    <p data-i18n>Avec R = 10 k&Omega; normalise, la duree obtenue reste tres proche des 45 &micro;s vises (tolerances habituelles sur R et C). Cette impulsion T fixe exactement le temps pendant lequel MG est coupe.</p>
 
-    <h4>Hacheurs MG et MD</h4>
-    <p>Le hacheur MG est un transistor 2N2219 commande directement par la sortie du monostable : quand l'impulsion est active, MG est coupe ; sinon MG tourne normalement. Le hacheur MD reçoit le signal inverse (via l'inverseur) : pendant l'impulsion, MD continue (voire est relance) alors que MG s'arrete. A la fin de l'impulsion T, MG redemarre et les deux moteurs tournent de nouveau normalement.</p>
+    <h4 data-i18n>Hacheurs MG et MD</h4>
+    <p data-i18n>Le hacheur MG est un transistor 2N2219 commande directement par la sortie du monostable : quand l'impulsion est active, MG est coupe ; sinon MG tourne normalement. Le hacheur MD reçoit le signal inverse (via l'inverseur) : pendant l'impulsion, MD continue (voire est relance) alors que MG s'arrete. A la fin de l'impulsion T, MG redemarre et les deux moteurs tournent de nouveau normalement.</p>
 
-    <h4>Contexte robot (carte SAE N°2)</h4>
-    <p>Le robot est alimente par deux sources : une batterie 8,4 V (electronique, regulee a 5 V pour le NE555) et un pack d'accumulateurs 4 &times; 1,2 V pour les moteurs, regule a 4,8 V. Les moteurs MG et MD sont pilotes en hacheur (rapport cyclique &alpha;) pour regler leur vitesse de rotation independamment, avec une vitesse de rotation proportionnelle a la tension moyenne appliquee.</p>
+    <h4 data-i18n>Contexte robot (carte SAE N°2)</h4>
+    <p data-i18n>Le robot est alimente par deux sources : une batterie 8,4 V (electronique, regulee a 5 V pour le NE555) et un pack d'accumulateurs 4 &times; 1,2 V pour les moteurs, regule a 4,8 V. Les moteurs MG et MD sont pilotes en hacheur (rapport cyclique &alpha;) pour regler leur vitesse de rotation independamment, avec une vitesse de rotation proportionnelle a la tension moyenne appliquee.</p>
 
-    <h4>Validation</h4>
-    <p>Lors d'un claquement, le capteur delivre une impulsion qui declenche le monostable : MG s'arrete pendant T, MD reste actif, le robot devie brievement de sa trajectoire puis reprend sa route en ligne droite une fois l'impulsion terminee. Le comportement mesure correspond au chronogramme attendu.</p>
+    <h4 data-i18n>Validation</h4>
+    <p data-i18n>Lors d'un claquement, le capteur delivre une impulsion qui declenche le monostable : MG s'arrete pendant T, MD reste actif, le robot devie brievement de sa trajectoire puis reprend sa route en ligne droite une fois l'impulsion terminee. Le comportement mesure correspond au chronogramme attendu.</p>
 
-    <h4>Pour comprendre — simulation interactive</h4>
-    <p>Clique sur le micro (ou tape sur ton clavier/touche n'importe ou) pour simuler un bruit : observe le moteur gauche s'arreter brievement pendant que le moteur droit continue de tourner, exactement comme sur le robot reel.</p>
+    <h4 data-i18n>Pour comprendre — simulation interactive</h4>
+    <p data-i18n>Clique sur le micro (ou tape sur ton clavier/touche n'importe ou) pour simuler un bruit : observe le moteur gauche s'arreter brievement pendant que le moteur droit continue de tourner, exactement comme sur le robot reel.</p>
 
     <div class="sound-demo">
       <div class="sr-stage">
         <div class="sr-col">
           <div id="srMic" class="sr-mic" title="Cliquer pour simuler un bruit">🎤</div>
-          <div class="metro-lbl">Faire du bruit</div>
+          <div class="metro-lbl" data-i18n>Faire du bruit</div>
         </div>
         <div class="sr-robot">
           <div class="sr-wheel left" id="srWheelL"></div>
@@ -603,12 +619,12 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
         </div>
       </div>
       <div class="sr-status">
-        <div class="sr-stat"><div class="v run" id="srStatMG">MG : ON</div><div class="l">Moteur gauche</div></div>
-        <div class="sr-stat"><div class="v run" id="srStatMD">MD : ON</div><div class="l">Moteur droit</div></div>
-        <div class="sr-stat"><div class="v" id="srStatMono">Mono : 0</div><div class="l">Sortie monostable</div></div>
+        <div class="sr-stat"><div class="v run" id="srStatMG">MG : ON</div><div class="l" data-i18n>Moteur gauche</div></div>
+        <div class="sr-stat"><div class="v run" id="srStatMD">MD : ON</div><div class="l" data-i18n>Moteur droit</div></div>
+        <div class="sr-stat"><div class="v" id="srStatMono">Mono : 0</div><div class="l" data-i18n>Sortie monostable</div></div>
       </div>
       <canvas class="sr-timeline" id="srTimeline" width="800" height="110"></canvas>
-      <p class="metro-note">Lignes du chronogramme (de haut en bas) : impulsion capteur, sortie du monostable (duree T), commande MG, commande MD (inversee). Le temps est etire pour rester visible a l'oeil &mdash; en realite T &asymp; 45 &micro;s.</p>
+      <p class="metro-note" data-i18n>Lignes du chronogramme (de haut en bas) : impulsion capteur, sortie du monostable (duree T), commande MG, commande MD (inversee). Le temps est etire pour rester visible a l'oeil &mdash; en realite T &asymp; 45 &micro;s.</p>
     </div>
   </div>
 </div>
@@ -618,14 +634,14 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
   <div class="modal-box">
     <div class="modal-close" onclick="closeLineModal()">&times;</div>
     <span class="mtag">SAE Arduino &middot; BUT GEII &middot; Theo Vigouroux &amp; Lyonel Kodjo</span>
-    <h2>Robot suiveur de ligne — priorite a droite</h2>
-    <p>Objectif : concevoir et programmer un robot autonome (Arduino Uno) capable de suivre une ligne noire sur fond blanc, d'appliquer une priorite a droite aux intersections, d'adapter sa vitesse via un potentiometre et de s'arreter immediatement en presence d'un obstacle detecte par un telemetre.</p>
+    <h2 data-i18n>Robot suiveur de ligne — priorite a droite</h2>
+    <p data-i18n>Objectif : concevoir et programmer un robot autonome (Arduino Uno) capable de suivre une ligne noire sur fond blanc, d'appliquer une priorite a droite aux intersections, d'adapter sa vitesse via un potentiometre et de s'arreter immediatement en presence d'un obstacle detecte par un telemetre.</p>
 
-    <h4>Materiel utilise</h4>
-    <p>Carte Arduino Uno, deux capteurs infrarouges de ligne (gauche/droite), un telemetre, un potentiometre pour le reglage de vitesse, et deux moteurs a courant continu pilotes en PWM via un etage de puissance a transistors.</p>
+    <h4 data-i18n>Materiel utilise</h4>
+    <p data-i18n>Carte Arduino Uno, deux capteurs infrarouges de ligne (gauche/droite), un telemetre, un potentiometre pour le reglage de vitesse, et deux moteurs a courant continu pilotes en PWM via un etage de puissance a transistors.</p>
 
-    <h4>Schema fonctionnel</h4>
-    <p>L'Arduino lit en continu trois tensions analogiques : Vcg et Vcd (capteurs de ligne gauche et droit) et Vt (telemetre), ainsi que la position du potentiometre pour la vitesse. En fonction de ces entrees, il pilote les commandes Vd et Vg des moteurs droit et gauche via des signaux PWM.</p>
+    <h4 data-i18n>Schema fonctionnel</h4>
+    <p data-i18n>L'Arduino lit en continu trois tensions analogiques : Vcg et Vcd (capteurs de ligne gauche et droit) et Vt (telemetre), ainsi que la position du potentiometre pour la vitesse. En fonction de ces entrees, il pilote les commandes Vd et Vg des moteurs droit et gauche via des signaux PWM.</p>
     <svg viewBox="0 0 760 290" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:12px;background:#07070a;border:1px solid rgba(255,255,255,0.08);display:block;margin:16px 0">
       <defs>
         <marker id="lA" markerWidth="8" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0,0 8,3.5 0,7" fill="#2997ff"/></marker>
@@ -699,28 +715,28 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
       <text x="524" y="185" text-anchor="middle" fill="#34d399" font-size="11" font-family="-apple-system,sans-serif" font-weight="600">Vd</text>
     </svg>
 
-    <h4>Chronogramme PWM</h4>
-    <p>Les releves a l'oscilloscope montrent le signal de commande moteur pour deux rapports cycliques : &alpha; = 0,75 (vitesse elevee) et &alpha; = 0,5 (vitesse moyenne). Plus &alpha; est grand, plus le temps a l'etat haut est long sur chaque periode, et plus le moteur tourne vite &mdash; c'est ce signal que le potentiometre permet de moduler.</p>
+    <h4 data-i18n>Chronogramme PWM</h4>
+    <p data-i18n>Les releves a l'oscilloscope montrent le signal de commande moteur pour deux rapports cycliques : &alpha; = 0,75 (vitesse elevee) et &alpha; = 0,5 (vitesse moyenne). Plus &alpha; est grand, plus le temps a l'etat haut est long sur chaque periode, et plus le moteur tourne vite &mdash; c'est ce signal que le potentiometre permet de moduler.</p>
     <canvas class="se-osc" id="pwmChrono" width="800" height="130" style="margin-bottom:8px"></canvas>
     <div class="spec-grid">
-      <div class="spec-box ok"><div class="sv">&alpha; = 0,75</div><div class="sl">Vitesse elevee (bleu)</div></div>
-      <div class="spec-box"><div class="sv">&alpha; = 0,5</div><div class="sl">Vitesse moyenne (blanc)</div></div>
+      <div class="spec-box ok"><div class="sv">&alpha; = 0,75</div><div class="sl" data-i18n>Vitesse elevee (bleu)</div></div>
+      <div class="spec-box"><div class="sv">&alpha; = 0,5</div><div class="sl" data-i18n>Vitesse moyenne (blanc)</div></div>
     </div>
 
-    <h4>Calibration des capteurs IR</h4>
-    <p>La plage de mesure analogique de l'Arduino est comprise entre 0 et 1023. Le seuil de detection a ete fixe a la valeur mediane :</p>
+    <h4 data-i18n>Calibration des capteurs IR</h4>
+    <p data-i18n>La plage de mesure analogique de l'Arduino est comprise entre 0 et 1023. Le seuil de detection a ete fixe a la valeur mediane :</p>
     <div class="spec-grid">
       <div class="spec-box"><div class="sv">512</div><div class="sl">seuilLigne</div></div>
-      <div class="spec-box ok"><div class="sv">&lt; 512</div><div class="sl">Surface noire (ligne)</div></div>
-      <div class="spec-box"><div class="sv">&gt; 512</div><div class="sl">Surface blanche</div></div>
+      <div class="spec-box ok"><div class="sv">&lt; 512</div><div class="sl" data-i18n>Surface noire (ligne)</div></div>
+      <div class="spec-box"><div class="sv">&gt; 512</div><div class="sl" data-i18n>Surface blanche</div></div>
     </div>
-    <p>Ce seuil median permet une separation simple et fiable entre noir et blanc, sans calibration complexe.</p>
+    <p data-i18n>Ce seuil median permet une separation simple et fiable entre noir et blanc, sans calibration complexe.</p>
 
-    <h4>Caracteristique du telemetre</h4>
-    <p>La tension delivree par le telemetre n'est pas lineaire avec la distance : elle vaut environ 1 V a 10 cm et decroit jusqu'a environ 0,28 V a 40 cm. Le seuil de detection d'obstacle a ete fixe pour declencher l'arret lorsque l'obstacle se trouve a environ 10 cm du robot, ce qui garantit une distance de securite suffisante avant tout contact.</p>
+    <h4 data-i18n>Caracteristique du telemetre</h4>
+    <p data-i18n>La tension delivree par le telemetre n'est pas lineaire avec la distance : elle vaut environ 1 V a 10 cm et decroit jusqu'a environ 0,28 V a 40 cm. Le seuil de detection d'obstacle a ete fixe pour declencher l'arret lorsque l'obstacle se trouve a environ 10 cm du robot, ce qui garantit une distance de securite suffisante avant tout contact.</p>
 
-    <h4>Pseudo-code (logique de decision)</h4>
-    <p>A chaque iteration : lecture de la vitesse (potentiometre), des deux capteurs de ligne et du telemetre. Si un obstacle est detecte, les deux moteurs sont coupes immediatement. Sinon : si les deux capteurs detectent le noir (intersection), priorite a droite ; si un seul capteur detecte le noir, le robot corrige sa trajectoire ; si aucun, ligne droite.</p>
+    <h4 data-i18n>Pseudo-code (logique de decision)</h4>
+    <p data-i18n>A chaque iteration : lecture de la vitesse (potentiometre), des deux capteurs de ligne et du telemetre. Si un obstacle est detecte, les deux moteurs sont coupes immediatement. Sinon : si les deux capteurs detectent le noir (intersection), priorite a droite ; si un seul capteur detecte le noir, le robot corrige sa trajectoire ; si aucun, ligne droite.</p>
     <div class="code-block" id="pseudoCode">
 <span class="ln">vitesse &larr; lire potentiometre</span>
 <span class="ln">valeurG &larr; lire capteur gauche</span>
@@ -741,52 +757,52 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
 <span class="ln"><span class="kw">&nbsp;&nbsp;FIN SI</span></span>
 <span class="ln"><span class="kw">FIN SI</span></span></div>
 
-    <h4>Justification de la strategie</h4>
-    <p>La logique repose sur une hierarchie de priorites claire : la securite passe avant tout (arret immediat sur obstacle), puis le suivi de ligne, puis la regle de priorite a droite aux intersections. Le seuil unique de 512 permet une decision rapide, sans calcul complexe, garantissant reactivite et robustesse.</p>
+    <h4 data-i18n>Justification de la strategie</h4>
+    <p data-i18n>La logique repose sur une hierarchie de priorites claire : la securite passe avant tout (arret immediat sur obstacle), puis le suivi de ligne, puis la regle de priorite a droite aux intersections. Le seuil unique de 512 permet une decision rapide, sans calcul complexe, garantissant reactivite et robustesse.</p>
 
-    <h4>Conclusion et perspectives</h4>
-    <p>Le robot suit correctement la ligne, applique la priorite a droite et s'arrete face a un obstacle. Quelques oscillations ont ete observees dans les virages, probablement liees au reglage du seuil et au temps de reponse des moteurs. Une amelioration future consisterait a integrer un correcteur proportionnel pour ameliorer la stabilite de la trajectoire.</p>
+    <h4 data-i18n>Conclusion et perspectives</h4>
+    <p data-i18n>Le robot suit correctement la ligne, applique la priorite a droite et s'arrete face a un obstacle. Quelques oscillations ont ete observees dans les virages, probablement liees au reglage du seuil et au temps de reponse des moteurs. Une amelioration future consisterait a integrer un correcteur proportionnel pour ameliorer la stabilite de la trajectoire.</p>
 
-    <h4>Pour comprendre — exploration des capteurs</h4>
-    <p>Deplace le robot au-dessus de la piste pour voir les valeurs analogiques des deux capteurs IR varier en direct, compare-les au seuil de 512, observe la ligne de pseudo-code qui s'active, et regle la distance d'un obstacle pour voir la reponse non lineaire du telemetre.</p>
+    <h4 data-i18n>Pour comprendre — exploration des capteurs</h4>
+    <p data-i18n>Deplace le robot au-dessus de la piste pour voir les valeurs analogiques des deux capteurs IR varier en direct, compare-les au seuil de 512, observe la ligne de pseudo-code qui s'active, et regle la distance d'un obstacle pour voir la reponse non lineaire du telemetre.</p>
 
     <div class="lf-demo">
       <canvas class="se-strip" id="seStrip" width="800" height="90"></canvas>
       <div class="lf-controls" style="margin:14px 0">
-        <label style="width:280px">Position du robot sur la piste
+        <label style="width:280px"><span data-i18n>Position du robot sur la piste</span>
           <input type="range" id="sePos" min="0" max="100" value="50" step="1" style="width:100%">
         </label>
       </div>
 
       <div class="se-bars">
         <div class="se-bar-col">
-          <div class="lf-status" style="margin:0"><div class="sr-stat"><div class="v" id="seCGval">CG = 512</div><div class="l">Capteur gauche (Vcg)</div></div></div>
+          <div class="lf-status" style="margin:0"><div class="sr-stat"><div class="v" id="seCGval">CG = 512</div><div class="l" data-i18n>Capteur gauche (Vcg)</div></div></div>
           <div class="se-bar"><div class="se-bar-thresh"></div><div class="se-bar-fill" id="seCGbar" style="width:50%"></div></div>
           <div class="lf-decision" id="seCGstate" style="font-size:12px">BLANC</div>
         </div>
         <div class="se-bar-col">
-          <div class="lf-status" style="margin:0"><div class="sr-stat"><div class="v" id="seCDval">CD = 512</div><div class="l">Capteur droit (Vcd)</div></div></div>
+          <div class="lf-status" style="margin:0"><div class="sr-stat"><div class="v" id="seCDval">CD = 512</div><div class="l" data-i18n>Capteur droit (Vcd)</div></div></div>
           <div class="se-bar"><div class="se-bar-thresh"></div><div class="se-bar-fill" id="seCDbar" style="width:50%"></div></div>
           <div class="lf-decision" id="seCDstate" style="font-size:12px">BLANC</div>
         </div>
       </div>
 
       <canvas class="se-osc" id="seOsc" width="800" height="130"></canvas>
-      <p class="metro-note" style="margin-top:8px">Chronogramme en direct de Vcg (bleu) et Vcd (orange), defilant dans le temps. La ligne pointillee rouge represente seuilLigne = 512 : en-dessous &rarr; NOIR, au-dessus &rarr; BLANC.</p>
+      <p class="metro-note" style="margin-top:8px" data-i18n>Chronogramme en direct de Vcg (bleu) et Vcd (orange), defilant dans le temps. La ligne pointillee rouge represente seuilLigne = 512 : en-dessous &rarr; NOIR, au-dessus &rarr; BLANC.</p>
 
-      <div class="lf-decision" id="seDecision" style="margin-top:18px">Suivi de ligne en cours...</div>
+      <div class="lf-decision" id="seDecision" style="margin-top:18px" data-i18n>Suivi de ligne en cours...</div>
       <div class="lf-status">
-        <div class="sr-stat"><div class="v" id="seMG">MG : ON</div><div class="l">Moteur gauche</div></div>
-        <div class="sr-stat"><div class="v" id="seMD">MD : ON</div><div class="l">Moteur droit</div></div>
+        <div class="sr-stat"><div class="v" id="seMG">MG : ON</div><div class="l" data-i18n>Moteur gauche</div></div>
+        <div class="sr-stat"><div class="v" id="seMD">MD : ON</div><div class="l" data-i18n>Moteur droit</div></div>
       </div>
 
       <div class="se-tel">
         <div style="flex:1;min-width:220px">
           <label style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--gray)">
-            Distance de l'obstacle (telemetre)
+            <span data-i18n>Distance de l'obstacle (telemetre)</span>
             <input type="range" id="seDist" min="8" max="45" value="30" step="1">
           </label>
-          <div class="sr-stat" style="margin-top:10px"><div class="v" id="seTelVal">30 cm — 0,38 V</div><div class="l">Lecture telemetre</div></div>
+          <div class="sr-stat" style="margin-top:10px"><div class="v" id="seTelVal">30 cm — 0,38 V</div><div class="l" data-i18n>Lecture telemetre</div></div>
         </div>
         <canvas class="se-curve" id="seCurve" width="260" height="160"></canvas>
       </div>
@@ -851,27 +867,24 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
   }
   scheduleBeats();
 
-  // Pendulum arm animation (visual tempo, independent of audio)
   function animArm(t){
-    var period = 60000 / bpm; // ms for one full back-and-forth-ish swing
-    var phase = (t % (period*2)) / (period*2); // 0..1
+    var period = 60000 / bpm;
+    var phase = (t % (period*2)) / (period*2);
     var angle = -22 + 44 * (0.5 - 0.5*Math.cos(phase*2*Math.PI));
     arm.style.transform = 'rotate(' + angle + 'deg)';
     armRAF = requestAnimationFrame(animArm);
   }
   armRAF = requestAnimationFrame(animArm);
 
-  // Oscilloscope drawing
   function drawOsc(t){
     var w = canvas.width, h = canvas.height;
     ctx.fillStyle = '#000';
     ctx.fillRect(0,0,w,h);
 
-    var period = 60000 / bpm; // ms
+    var period = 60000 / bpm;
     var windowMs = period * 2.4;
     var pxPerMs = w / windowMs;
 
-    // V1 - tempo square wave (blue), high most of time, low during "dur"
     ctx.strokeStyle = '#2997ff';
     ctx.lineWidth = 2;
     ctx.beginPath();
@@ -884,7 +897,6 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
     }
     ctx.stroke();
 
-    // V3 - audio square wave (red), only visible during "dur" window of each beat
     ctx.strokeStyle = '#ff3b30';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
@@ -958,8 +970,8 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
   var canvas = document.getElementById('srTimeline');
   var ctx = canvas.getContext('2d');
 
-  var PULSE_MS = 1400; // stretched duration of T=45us for visibility
-  var history = []; // {t, sensor, mono}
+  var PULSE_MS = 1400;
+  var history = [];
   var startTime = performance.now();
   var monoUntil = 0;
 
@@ -982,7 +994,6 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
     var now = performance.now();
     var monoActive = now < monoUntil;
 
-    // MG = OFF while monostable active ; MD = ON always (relaunched if needed)
     var mgOn = !monoActive;
     var mdOn = true;
 
@@ -1021,12 +1032,8 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
     ctx.fillText('Commande MG', 6, rowH*2+14);
     ctx.fillText('Commande MD', 6, rowH*3+14);
 
-    // Build mono level + sensor pulses over time
     var sensorEvents = history.filter(function(e){ return e.sensor; });
 
-    function monoLevel(t){ return t < monoUntil ? 1 : 0; }
-
-    // Draw each row as square wave
     function drawRow(rowIndex, levelFn, color){
       ctx.strokeStyle = color;
       ctx.lineWidth = 2;
@@ -1045,7 +1052,6 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
       ctx.stroke();
     }
 
-    // sensor: short spike at each trigger
     drawRow(0, function(t){
       for(var i=0;i<sensorEvents.length;i++){
         if(t >= sensorEvents[i].t && t < sensorEvents[i].t+60) return 1;
@@ -1053,13 +1059,10 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
       return 0;
     }, '#2997ff');
 
-    // monostable
     drawRow(1, function(t){ return t < monoUntil && t >= (monoUntil-PULSE_MS) ? 1 : 0; }, '#ff9f43');
 
-    // MG command = inverse of mono
     drawRow(2, function(t){ return (t < monoUntil && t >= (monoUntil-PULSE_MS)) ? 0 : 1; }, '#34d399');
 
-    // MD command = always 1 (stays active)
     drawRow(3, function(t){ return 1; }, '#ff3b30');
   }
 
@@ -1081,7 +1084,6 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
 
 <script>
 (function(){
-  // ---- Static PWM chronogram (alpha=0.75 blue, alpha=0.5 white) ----
   var pwmCanvas = document.getElementById('pwmChrono');
   var pctx = pwmCanvas.getContext('2d');
   function drawPwm(){
@@ -1114,7 +1116,6 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
   }
   drawPwm();
 
-  // ---- Pseudo-code highlighting ----
   var codeLines = document.querySelectorAll('#pseudoCode .ln');
   function highlightCode(state){
     codeLines.forEach(function(l){
@@ -1127,7 +1128,6 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
     });
   }
 
-  // ---- Sensor explorer ----
   var strip = document.getElementById('seStrip');
   var sctx = strip.getContext('2d');
   var posSlider = document.getElementById('sePos');
@@ -1141,16 +1141,14 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
   var mgEl = document.getElementById('seMG');
   var mdEl = document.getElementById('seMD');
 
-  var SENSOR_OFFSET = 50; // px from center, left/right sensor positions
-  var LINE_HALF_W = 28;   // px half-width of the black line
+  var SENSOR_OFFSET = 50;
+  var LINE_HALF_W = 28;
   var THRESH = 512;
 
   function sensorValue(distToLineCenter){
-    // distance in px to line center -> analog value 0..1023
     var d = Math.abs(distToLineCenter);
-    if(d < LINE_HALF_W*0.5) return 60;          // fully on black
-    if(d > LINE_HALF_W*2.2) return 980;          // fully on white
-    // smooth transition
+    if(d < LINE_HALF_W*0.5) return 60;
+    if(d > LINE_HALF_W*2.2) return 980;
     var t = (d - LINE_HALF_W*0.5) / (LINE_HALF_W*1.7);
     return Math.round(60 + t*(980-60));
   }
@@ -1163,7 +1161,6 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
     sctx.fillRect(lineX - LINE_HALF_W, 0, LINE_HALF_W*2, h);
 
     var cx = w/2;
-    // sensors
     [cx-SENSOR_OFFSET, cx+SENSOR_OFFSET].forEach(function(sx, i){
       sctx.beginPath();
       sctx.arc(sx, h/2, 8, 0, 2*Math.PI);
@@ -1179,7 +1176,6 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
     sctx.fillText('CD', cx+SENSOR_OFFSET-8, h-6);
   }
 
-  // scrolling oscilloscope
   var osc = document.getElementById('seOsc');
   var octx = osc.getContext('2d');
   var histCG = [], histCD = [];
@@ -1189,7 +1185,6 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
     var w = osc.width, h = osc.height;
     octx.fillStyle = '#000';
     octx.fillRect(0,0,w,h);
-    // threshold line
     var ty = h - (THRESH/1023)*h;
     octx.strokeStyle = '#ff3b30';
     octx.setLineDash([5,5]);
@@ -1218,10 +1213,10 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
   }
 
   function update(){
-    var pos = parseInt(posSlider.value); // 0..100
+    var pos = parseInt(posSlider.value);
     var w = strip.width;
     var cx = w/2;
-    var lineX = (pos/100) * w; // line center moves across full width
+    var lineX = (pos/100) * w;
 
     drawStrip(lineX);
 
@@ -1237,16 +1232,14 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
     var cgBlack = vcg < THRESH, cdBlack = vcd < THRESH;
     cgState.textContent = cgBlack ? 'NOIR' : 'BLANC';
     cdState.textContent = cdBlack ? 'NOIR' : 'BLANC';
-    cgState.className = 'lf-decision ' + (cgBlack ? '' : '');
 
     histCG.push(vcg); histCD.push(vcd);
     if(histCG.length>MAXH) histCG.shift();
     if(histCD.length>MAXH) histCD.shift();
     drawOsc();
 
-    // decision logic incl. telemetre
     var distVal = parseFloat(document.getElementById('seDist').value);
-    var seuilObstacle = 10; // cm
+    var seuilObstacle = 10;
 
     var state, mg, md;
     if(distVal <= seuilObstacle){
@@ -1282,7 +1275,6 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
   posSlider.addEventListener('input', function(){});
   requestAnimationFrame(update);
 
-  // ---- Telemetre characteristic curve ----
   var curve = document.getElementById('seCurve');
   var cctx = curve.getContext('2d');
   var distSlider = document.getElementById('seDist');
@@ -1317,7 +1309,6 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
     });
     cctx.stroke();
 
-    // current point
     var d = parseFloat(distSlider.value);
     var v = interpV(d);
     var x = m + (d-8)/(45-8)*(w-m-10);
@@ -1349,14 +1340,13 @@ footer{border-top:1px solid var(--border);padding:24px 40px;text-align:center;co
 </script>
 
 <footer>
-  <p>&copy; 2025 &mdash; Theo Vigouroux &middot; Portfolio GEII</p>
+  <p data-i18n>&copy; 2025 &mdash; Theo Vigouroux &middot; Portfolio GEII</p>
 </footer>
 
 <script>
 var cg = document.getElementById('cg');
 document.addEventListener('mousemove', function(e){cg.style.left=e.clientX+'px';cg.style.top=e.clientY+'px'});
 
-// Observer
 var obs = new IntersectionObserver(function(entries){
   entries.forEach(function(entry){
     if(!entry.isIntersecting) return;
@@ -1371,7 +1361,6 @@ document.querySelectorAll('.pcard,.goal-card').forEach(function(el,i){
   obs.observe(el);
 });
 
-// Filter
 document.querySelectorAll('.filter-btn').forEach(function(btn){
   btn.addEventListener('click', function(){
     document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active')});
@@ -1385,7 +1374,6 @@ document.querySelectorAll('.filter-btn').forEach(function(btn){
         card.classList.add('hidden');
       }
     });
-    // Show/hide separators
     document.querySelectorAll('.sep').forEach(function(sep){
       if(filter === 'all'){
         sep.style.display = '';
