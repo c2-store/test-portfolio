@@ -269,7 +269,14 @@
     "#tvaNavMenu.open{display:flex;}" +
     ".tva-lang-item{background:none;border:none;color:#f5f5f7;font-size:13px;padding:8px 12px;border-radius:8px;text-align:left;cursor:pointer;transition:background 0.15s;white-space:nowrap;display:flex;align-items:center;gap:8px;}" +
     ".tva-lang-item:hover{background:rgba(255,255,255,0.1);}" +
-    ".tva-lang-item.cur{color:var(--blue,#2997ff);font-weight:600;background:rgba(41,151,255,0.1);}";
+    ".tva-lang-item.cur{color:var(--blue,#2997ff);font-weight:600;background:rgba(41,151,255,0.1);}" +
+    /* ── CORRECTIF MOBILE : le bouton de langue etait masque par le menu hamburger ── */
+    "@media(max-width:768px){" +
+      "nav ul.nav-open{max-height:520px !important;}" +
+      ".tva-nav-lang{width:100%;margin:10px 0 4px;padding:0 24px;box-sizing:border-box;justify-content:center;}" +
+      "#tvaNavBtn{width:100%;justify-content:center;padding:12px;border-radius:10px;}" +
+      "#tvaNavMenu{position:static;width:100%;margin-top:8px;box-shadow:none;box-sizing:border-box;}" +
+    "}";
   document.head.appendChild(style);
 
   function buildNavSwitcher() {
